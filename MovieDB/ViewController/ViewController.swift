@@ -19,9 +19,7 @@ class ViewController: UIViewController {
         movieCollection.dataSource = self
         movieCollection.delegate = self
         
-        
-        let bla = MovieService()
-        bla.requestMovies { result in
+        MovieService.shared.requestMovies { result in
             switch result {
             case .success(let movieList):
                 self.movieList = movieList
@@ -45,7 +43,7 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
             return UICollectionViewCell()
         }
         
-        movieCell.prepare(title: movie.title, posterUrl: "https://image.tmdb.org/t/p/w500/\(movie.posterPath)")
+        movieCell.prepare(title: movie.title, posterUrl: movie.fullPosterPath)
         
         return movieCell
     }

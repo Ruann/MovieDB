@@ -13,9 +13,18 @@ enum NetworkError: Error {
 }
 
 class MovieDBApi {
-    public func requestMovies(completion: @escaping (Result<MovieList, Error>) -> Void) {
+    func requestConfiguration(completion: @escaping (Result<Configuration, Error>) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/configuration?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
+        requestData(url: urlString, completion: completion)
+    }
+    
+    func requestMovies(completion: @escaping (Result<MovieList, Error>) -> Void) {
         let urlString = "https://api.themoviedb.org/3/movie/popular?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
-        guard let url = URL(string: urlString) else {
+        requestData(url: urlString, completion: completion)
+    }
+    
+    private func requestData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
+        guard let url = URL(string: url) else {
             return
         }
         let session = URLSession.shared
@@ -37,10 +46,11 @@ class MovieDBApi {
                 return
             }
             
+            
             do {
-                let movieList = try JSONDecoder().decode(MovieList.self, from: data)
+                let decodeObject = try JSONDecoder().decode(T.self, from: data)
                 DispatchQueue.main.async {
-                    completion(Result.success(movieList))
+                    completion(Result.success(decodeObject))
                 }
                 
             } catch let error {

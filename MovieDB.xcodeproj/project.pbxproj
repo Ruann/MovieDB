@@ -21,6 +21,7 @@
 		AD4A5F3324C205DE00D3C485 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F3224C205DE00D3C485 /* MovieCell.swift */; };
 		AD4A5F3724C21D5800D3C485 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F3624C21D5800D3C485 /* ImageDownloader.swift */; };
 		AD4A5F3A24C2227E00D3C485 /* MovieDBApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F3924C2227E00D3C485 /* MovieDBApi.swift */; };
+		AD4A5F3C24C2255700D3C485 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F3B24C2255700D3C485 /* Configuration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		AD4A5F3224C205DE00D3C485 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 		AD4A5F3624C21D5800D3C485 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
 		AD4A5F3924C2227E00D3C485 /* MovieDBApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBApi.swift; sourceTree = "<group>"; };
+		AD4A5F3B24C2255700D3C485 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				AD4A5F2E24C1FA6D00D3C485 /* Movie.swift */,
 				AD4A5F3024C1FE6C00D3C485 /* MovieList.swift */,
+				AD4A5F3B24C2255700D3C485 /* Configuration.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -284,6 +287,7 @@
 				AD4A5F0724C1EBE500D3C485 /* ViewController.swift in Sources */,
 				AD4A5F3A24C2227E00D3C485 /* MovieDBApi.swift in Sources */,
 				AD4A5F0324C1EBE500D3C485 /* AppDelegate.swift in Sources */,
+				AD4A5F3C24C2255700D3C485 /* Configuration.swift in Sources */,
 				AD4A5F2C24C1FA4A00D3C485 /* MovieService.swift in Sources */,
 				AD4A5F0524C1EBE500D3C485 /* SceneDelegate.swift in Sources */,
 				AD4A5F2F24C1FA6D00D3C485 /* Movie.swift in Sources */,

@@ -20,7 +20,6 @@ class ImageDownloader {
     private init() {}
     
     func getImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
-        
         guard let url = URL(string: url) else {
             DispatchQueue.main.async() {
                 completion(.failure(ImageDownloaderError.missingURL))

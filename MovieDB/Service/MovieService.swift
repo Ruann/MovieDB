@@ -9,9 +9,16 @@
 import Foundation
 
 class MovieService {
+    static let shared = MovieService()
+    private let movieApi = MovieDBApi()
     
-    public func requestMovies(completion: @escaping (Result<MovieList, Error>) -> Void) {
-        let movieApi = MovieDBApi()
+    private init() {}
+    
+    func requestConfiguration(completion: @escaping (Result<Configuration, Error>) -> Void) {
+        movieApi.requestConfiguration(completion: completion)
+    }
+    
+    func requestMovies(completion: @escaping (Result<MovieList, Error>) -> Void) {
         movieApi.requestMovies(completion: completion)
     }
 }
