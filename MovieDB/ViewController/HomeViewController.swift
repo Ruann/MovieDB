@@ -29,7 +29,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return UICollectionViewCell()
         }
         
-        movieListCell.prepare(movieCategory: movieCategories[indexPath.row])
+        let movieProvider = MovieCategoryProvider(movieCategory: movieCategories[indexPath.row])
+        movieListCell.prepare(movieCategoryProvider: movieProvider)
 
         return movieListCell
     }

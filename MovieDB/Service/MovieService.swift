@@ -18,7 +18,7 @@ class MovieService {
         movieApi.requestConfiguration(completion: completion)
     }
     
-    func requestMovies(from category: MovieCategory, completion: @escaping (Result<MovieList, Error>) -> Void) {
-        movieApi.requestMovies(from: category, completion: completion)
+    func requestMovies(from category: MovieCategory, page: Int, completion: @escaping (Result<MovieList, Error>) -> Void) {
+        movieApi.requestMovies(from: category, page: page, completion: completion)
     }
 }

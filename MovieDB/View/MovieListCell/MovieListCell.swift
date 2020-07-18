@@ -9,42 +9,54 @@
 import UIKit
 
 class MovieListCell: UICollectionViewCell {
-    private var movieList: MovieList?
+    private var movieCategoryProvider: MovieCategoryProvider?
     
-    @IBOutlet weak var categoryLabel: UILabel!
-    @IBOutlet weak var movieCollection: UICollectionView! {
+    @IBOutlet private weak var categoryLabel: UILabel!
+    @IBOutlet private weak var movieCollection: UICollectionView! {
         didSet {
             movieCollection.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
             movieCollection.dataSource = self
             movieCollection.delegate = self
+            movieCollection.prefetchDataSource = self
         }
     }
     
-    func prepare(movieCategory: MovieCategory) {
-        self.categoryLabel.text = movieCategory.displayName
+    func prepare(movieCategoryProvider: MovieCategoryProvider) {
+        self.movieCategoryProvider = movieCategoryProvider
+        movieCategoryProvider.delegate = self
         
-        MovieService.shared.requestMovies(from: movieCategory) { result in
-            switch result {
-            case .success(let movieList):
-                self.movieList = movieList
-                self.movieCollection.reloadData()
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        self.categoryLabel.text = movieCategoryProvider.displayName
+        
+        movieCategoryProvider.requestMovies()
+    }
+    
+    
+    
+    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+        let indexPathsForVisibleRows = movieCollection.indexPathsForVisibleItems
+        let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
+        return Array(indexPathsIntersection)
     }
 }
 
 extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let movieList = movieList else { return 0 }
-        return movieList.movies.count
+        guard let movieCategoryProvider = movieCategoryProvider else { return 0 }
+        return movieCategoryProvider.totalMoviesToDisplay
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as? MovieCell,
-            let movie = movieList?.movies[indexPath.row] else {
+        guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as? MovieCell else {
             return UICollectionViewCell()
+        }
+        
+        guard let movieCategoryProvider = movieCategoryProvider else {
+            return UICollectionViewCell()
+        }
+        
+        guard !movieCategoryProvider.isLoadingMovieCell(for: indexPath),
+            let movie = movieCategoryProvider.movie(for: indexPath) else {
+                return movieCell
         }
         
         movieCell.prepare(title: movie.title, posterUrl: movie.fullPosterPath)
@@ -53,8 +65,31 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
+extension MovieListCell: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        guard let movieCategoryProvider = movieCategoryProvider else { return }
+        if indexPaths.contains(where: movieCategoryProvider.isLoadingMovieCell) {
+            movieCategoryProvider.requestMovies()
+        }
+    }
+}
+
+
 extension MovieListCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 200, height: 280)
+    }
+}
+
+extension MovieListCell: MovieCategoryProviderDelegate {
+    func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider) {
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+            movieCollection.reloadData()
+            return
+        }
+      
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        
+        movieCollection.reloadItems(at: indexPathsToReload)
     }
 }

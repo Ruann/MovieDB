@@ -18,8 +18,8 @@ class MovieDBApi {
         requestData(url: urlString, completion: completion)
     }
     
-    func requestMovies(from category: MovieCategory,completion: @escaping (Result<MovieList, Error>) -> Void) {
-        let urlString = "https://api.themoviedb.org/3/movie/\(category.rawValue)?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
+    func requestMovies(from category: MovieCategory, page: Int,completion: @escaping (Result<MovieList, Error>) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/movie/\(category.rawValue)?page=\(page)&api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
         requestData(url: urlString, completion: completion)
     }
     

@@ -9,9 +9,18 @@
 import Foundation
 
 struct MovieList: Codable {
+    let page: Int
+    let total: Int
     let movies: [Movie]
     
     private enum CodingKeys : String, CodingKey {
+        case page
+        case total = "total_results"
         case movies = "results"
+    }
+    
+    func merge(newMovieList: MovieList) -> MovieList {
+        let newMoviesArray = movies + newMovieList.movies
+        return MovieList(page: 0, total: 0, movies: newMoviesArray)
     }
 }
