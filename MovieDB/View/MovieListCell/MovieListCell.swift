@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MovieListCell.swift
 //  MovieDB
 //
 //  Created by Ruann Homem on 17/07/20.
@@ -8,18 +8,22 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-    @IBOutlet private weak var movieCollection: UICollectionView!
+class MovieListCell: UICollectionViewCell {
     private var movieList: MovieList?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var movieCollection: UICollectionView! {
+        didSet {
+            movieCollection.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+            movieCollection.dataSource = self
+            movieCollection.delegate = self
+        }
+    }
+    
+    func prepare(movieCategory: MovieCategory) {
+        self.categoryLabel.text = movieCategory.displayName
         
-        movieCollection.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
-        movieCollection.dataSource = self
-        movieCollection.delegate = self
-        
-        MovieService.shared.requestMovies { result in
+        MovieService.shared.requestMovies(from: movieCategory) { result in
             switch result {
             case .success(let movieList):
                 self.movieList = movieList
@@ -31,7 +35,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let movieList = movieList else { return 0 }
         return movieList.movies.count
@@ -49,8 +53,8 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
-extension ViewController: UICollectionViewDelegateFlowLayout {
+extension MovieListCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 400, height: 400)
+        return CGSize(width: 200, height: 280)
     }
 }

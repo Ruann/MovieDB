@@ -45,6 +45,7 @@ class ImageDownloader {
                 completion(.success(image))
             }
         }
+        
         task.resume()
     }
 }

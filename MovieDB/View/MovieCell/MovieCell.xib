@@ -9,38 +9,38 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Mce-kQ-zDf" customClass="MovieCell" customModule="MovieDB" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="239" height="223"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieCell" id="Mce-kQ-zDf" customClass="MovieCell" customModule="MovieDB" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="239" height="385"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="bMT-6a-mSy">
-                <rect key="frame" x="0.0" y="0.0" width="239" height="223"/>
+                <rect key="frame" x="0.0" y="0.0" width="239" height="385"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SFy-Xm-QCX">
-                        <rect key="frame" x="0.0" y="0.0" width="239" height="197"/>
+                        <rect key="frame" x="0.0" y="0.0" width="239" height="350.5"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ReV-zl-glQ">
-                        <rect key="frame" x="16" y="202" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="16" y="360.5" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="ReV-zl-glQ" firstAttribute="leading" secondItem="bMT-6a-mSy" secondAttribute="leadingMargin" id="9eW-nx-Zhi"/>
-                    <constraint firstItem="ReV-zl-glQ" firstAttribute="top" secondItem="SFy-Xm-QCX" secondAttribute="bottom" constant="5" id="BVd-eB-fGa"/>
+                    <constraint firstItem="ReV-zl-glQ" firstAttribute="top" secondItem="SFy-Xm-QCX" secondAttribute="bottom" constant="10" id="BVd-eB-fGa"/>
                     <constraint firstItem="SFy-Xm-QCX" firstAttribute="leading" secondItem="bMT-6a-mSy" secondAttribute="leading" id="Cl6-a6-Yrv"/>
-                    <constraint firstAttribute="bottom" secondItem="ReV-zl-glQ" secondAttribute="bottom" id="Uqr-hL-9Hp"/>
+                    <constraint firstAttribute="bottom" secondItem="ReV-zl-glQ" secondAttribute="bottom" constant="10" id="Uqr-hL-9Hp"/>
                     <constraint firstItem="SFy-Xm-QCX" firstAttribute="top" secondItem="bMT-6a-mSy" secondAttribute="top" id="WvL-1o-XwV"/>
-                    <constraint firstItem="SFy-Xm-QCX" firstAttribute="centerX" secondItem="bMT-6a-mSy" secondAttribute="centerX" id="emi-2C-y9c"/>
+                    <constraint firstAttribute="trailing" secondItem="SFy-Xm-QCX" secondAttribute="trailing" id="uf1-1X-sqm"/>
                 </constraints>
             </collectionViewCellContentView>
-            <size key="customSize" width="226" height="223"/>
+            <size key="customSize" width="226" height="385"/>
             <connections>
                 <outlet property="posterImage" destination="SFy-Xm-QCX" id="VJq-IG-wYs"/>
                 <outlet property="titleLabel" destination="ReV-zl-glQ" id="lc9-dE-UnZ"/>
             </connections>
-            <point key="canvasLocation" x="-6.5217391304347831" y="29.799107142857142"/>
+            <point key="canvasLocation" x="-6.5217391304347831" y="84.040178571428569"/>
         </collectionViewCell>
     </objects>
 </document>

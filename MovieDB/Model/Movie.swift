@@ -29,6 +29,4 @@ struct Movie: Codable {
         case title
         case posterPath = "poster_path"
     }
-    
-    
 }
