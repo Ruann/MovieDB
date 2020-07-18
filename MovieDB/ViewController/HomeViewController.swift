@@ -17,6 +17,16 @@ class HomeViewController: UIViewController {
         
         movieCollection.register(UINib(nibName: "MovieListCell", bundle: nil), forCellWithReuseIdentifier: "MovieListCell")
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -31,6 +41,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
         let movieProvider = MovieCategoryProvider(movieCategory: movieCategories[indexPath.row])
         movieListCell.prepare(movieCategoryProvider: movieProvider)
+        movieListCell.delegate = self
 
         return movieListCell
     }
@@ -39,5 +50,17 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: UIScreen.main.bounds.width, height: 350)
+    }
+}
+
+extension HomeViewController: MovieListCellDelegate {
+    func didSelect(movieTile: MovieTile, movieListCell: MovieListCell) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+
+        let movieDetailViewController = storyboard.instantiateViewController(withIdentifier: "MovieDetailViewController") as! MovieDetailViewController
+        
+        movieDetailViewController.load(movieTile)
+        
+        navigationController?.pushViewController(movieDetailViewController, animated: true)
     }
 }

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol MovieListCellDelegate {
+    func didSelect(movieTile: MovieTile, movieListCell: MovieListCell)
+}
+
 class MovieListCell: UICollectionViewCell {
+    var delegate: MovieListCellDelegate?
+    
     private var movieCategoryProvider: MovieCategoryProvider?
     
     @IBOutlet private weak var categoryLabel: UILabel!
@@ -30,12 +36,15 @@ class MovieListCell: UICollectionViewCell {
         movieCategoryProvider.requestMovies()
     }
     
-    
-    
     func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
         let indexPathsForVisibleRows = movieCollection.indexPathsForVisibleItems
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
+    }
+    
+    override func prepareForReuse() {
+        movieCategoryProvider = nil
+        categoryLabel.text = nil
     }
 }
 
@@ -55,13 +64,21 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
         }
         
         guard !movieCategoryProvider.isLoadingMovieCell(for: indexPath),
-            let movie = movieCategoryProvider.movie(for: indexPath) else {
+            let movieTile = movieCategoryProvider.movieTile(for: indexPath) else {
                 return movieCell
         }
         
-        movieCell.prepare(title: movie.title, posterUrl: movie.fullPosterPath)
+        movieCell.prepare(title: movieTile.title, posterUrl: movieTile.fullPosterPath)
         
         return movieCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let movieCategoryProvider = movieCategoryProvider else { return }
+        
+        guard let selectedMovie = movieCategoryProvider.movieTile(for: indexPath) else { return }
+        
+        delegate?.didSelect(movieTile: selectedMovie, movieListCell: self)
     }
 }
 

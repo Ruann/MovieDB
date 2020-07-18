@@ -21,4 +21,8 @@ class MovieService {
     func requestMovies(from category: MovieCategory, page: Int, completion: @escaping (Result<MovieList, Error>) -> Void) {
         movieApi.requestMovies(from: category, page: page, completion: completion)
     }
+    
+    func requestMoviesDetails(movieId: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
+        movieApi.requestMoviesDetails(movieId: movieId, completion: completion)
+    }
 }

@@ -14,10 +14,12 @@ struct Configuration: Codable {
 
 struct ImagesConfiguration: Codable {
     let baseUrl: String
+    let backdropsizes: [String]
     let posterSizes: [String]
     
     private enum CodingKeys : String, CodingKey {
         case baseUrl = "secure_base_url"
         case posterSizes = "poster_sizes"
+        case backdropsizes  = "backdrop_sizes"
     }
 }

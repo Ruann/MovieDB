@@ -28,7 +28,7 @@ class MovieCategoryProvider {
     }
     
     var totalMoviesLoaded: Int {
-        return movieList?.movies.count ?? 0
+        return movieList?.moviesTile.count ?? 0
     }
     
     var totalMoviesToDisplay: Int {
@@ -60,8 +60,8 @@ class MovieCategoryProvider {
         }
     }
     
-    func movie(for indexPath: IndexPath) -> Movie? {
-        movieList?.movies[indexPath.row]
+    func movieTile(for indexPath: IndexPath) -> MovieTile? {
+        movieList?.moviesTile[indexPath.row]
     }
     
     func isLoadingMovieCell(for indexPath: IndexPath) -> Bool {
@@ -71,7 +71,7 @@ class MovieCategoryProvider {
     private func loadNewMovies(newMovieList: MovieList) {
         if newMovieList.page > 1 {
             movieList = movieList?.merge(newMovieList: newMovieList)
-            let indexPathsToReload = self.calculateIndexPathsToReload(from: newMovieList.movies)
+            let indexPathsToReload = self.calculateIndexPathsToReload(from: newMovieList.moviesTile)
             self.delegate?.onRequestCompleted(with: indexPathsToReload, movieCategoryProvider: self)
         } else {
             movieList = newMovieList
@@ -79,9 +79,9 @@ class MovieCategoryProvider {
         }
     }
     
-    private func calculateIndexPathsToReload(from newMovies: [Movie]) -> [IndexPath] {
-        let startIndex = totalMoviesLoaded - newMovies.count
-        let endIndex = startIndex + newMovies.count
+    private func calculateIndexPathsToReload(from newMoviesTiles: [MovieTile]) -> [IndexPath] {
+        let startIndex = totalMoviesLoaded - newMoviesTiles.count
+        let endIndex = startIndex + newMoviesTiles.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }

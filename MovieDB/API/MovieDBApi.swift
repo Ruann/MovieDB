@@ -23,6 +23,11 @@ class MovieDBApi {
         requestData(url: urlString, completion: completion)
     }
     
+    func requestMoviesDetails(movieId: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
+        requestData(url: urlString, completion: completion)
+    }
+    
     private func requestData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
         guard let url = URL(string: url) else {
             return
