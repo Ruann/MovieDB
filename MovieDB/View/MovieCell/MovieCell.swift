@@ -17,19 +17,42 @@ class MovieCell: UICollectionViewCell {
             posterImage.layer.masksToBounds = true
         }
     }
+    
+    @IBOutlet weak var backgroundFallback: UIView! {
+        didSet {
+            backgroundFallback.layer.cornerRadius = 20
+            backgroundFallback.layer.masksToBounds = true
+        }
+    }
+    
+    @IBOutlet weak var noPosterLabel: UILabel!
+    @IBOutlet weak var posterActivityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
-    
     
     func prepare(title: String, posterUrl: String, voteAverage: Double) {
         titleLabel.text = title
         starRatingView.setupStars(voteAverage: voteAverage)
+        loadPosterImage(posterUrlString: posterUrl)
+    }
+    
+    private func loadPosterImage(posterUrlString: String) {
+        guard let posterUrl = URL(string: posterUrlString) else {
+            posterActivityIndicator.stopAnimating()
+            noPosterLabel.isHidden = false
+            return
+        }
         
-        imageDownloadTask = ImageDownloader.shared.getImage(url: posterUrl) { result in
+        posterActivityIndicator.startAnimating()
+        
+        imageDownloadTask = ImageDownloader.shared.getImage(url: posterUrl) { [weak self] result in
+            self?.posterActivityIndicator.stopAnimating()
             switch result {
             case .success(let image):
-                self.posterImage.image = image
+                self?.posterImage.image = image
             case .failure(let error):
+                self?.noPosterLabel.isHidden = false
                 print(error.localizedDescription)
             }
         }
@@ -39,5 +62,7 @@ class MovieCell: UICollectionViewCell {
         imageDownloadTask?.cancel()
         posterImage.image = nil 
         titleLabel.text = nil
+        noPosterLabel.isHidden = true
+        posterActivityIndicator.isHidden = false
     }
 }

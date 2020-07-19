@@ -57,12 +57,12 @@ class MovieDetailViewController: UIViewController {
         genreListLabel.text = movie.genreList
         releaseDateLabel.text = movie.releaseDate
         
-        loadBackgroundImage(url: movie.backgroundImageFullPath)
+        loadBackgroundImage(urlString: movie.backgroundImageFullPath)
         starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)
     }
     
-    
-    private func loadBackgroundImage(url: String) {
+    private func loadBackgroundImage(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
         ImageDownloader.shared.getImage(url: url) { result in
             switch result {
             case .success(let image):

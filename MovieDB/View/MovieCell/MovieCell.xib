@@ -7,6 +7,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
         <array key="OpenSans-SemiBold.ttf">
             <string>OpenSans-SemiBold</string>
         </array>
@@ -21,6 +24,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="254" height="440"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dxp-dW-dmV">
+                        <rect key="frame" x="0.0" y="0.0" width="254" height="394"/>
+                        <subviews>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Poster Available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFr-bW-6Va">
+                                <rect key="frame" x="59" y="187" width="136" height="20.5"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KIq-rl-r9o">
+                                <rect key="frame" x="117" y="187" width="20" height="20"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.36078431372549019" green="0.62745098039215685" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="QFr-bW-6Va" firstAttribute="centerX" secondItem="Dxp-dW-dmV" secondAttribute="centerX" id="ZOj-Q9-6vt"/>
+                            <constraint firstItem="QFr-bW-6Va" firstAttribute="centerY" secondItem="Dxp-dW-dmV" secondAttribute="centerY" id="bkL-Ct-1tp"/>
+                            <constraint firstItem="KIq-rl-r9o" firstAttribute="centerX" secondItem="Dxp-dW-dmV" secondAttribute="centerX" id="w77-Q9-FYf"/>
+                            <constraint firstItem="KIq-rl-r9o" firstAttribute="centerY" secondItem="Dxp-dW-dmV" secondAttribute="centerY" id="yRd-Iz-qev"/>
+                        </constraints>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SFy-Xm-QCX">
                         <rect key="frame" x="0.0" y="0.0" width="254" height="394"/>
                     </imageView>
@@ -42,20 +67,27 @@
                     </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="Dxp-dW-dmV" firstAttribute="trailing" secondItem="SFy-Xm-QCX" secondAttribute="trailing" id="0FK-X4-gD6"/>
+                    <constraint firstItem="Dxp-dW-dmV" firstAttribute="leading" secondItem="SFy-Xm-QCX" secondAttribute="leading" id="Aaw-QY-mPJ"/>
                     <constraint firstItem="AzS-rk-C8F" firstAttribute="top" secondItem="ReV-zl-glQ" secondAttribute="bottom" constant="5" id="AjV-t9-nxh"/>
                     <constraint firstItem="ReV-zl-glQ" firstAttribute="top" secondItem="SFy-Xm-QCX" secondAttribute="bottom" constant="5" id="Fg8-an-OyU"/>
                     <constraint firstAttribute="trailing" secondItem="ReV-zl-glQ" secondAttribute="trailing" id="GAi-UH-MbC"/>
                     <constraint firstItem="SFy-Xm-QCX" firstAttribute="top" secondItem="bMT-6a-mSy" secondAttribute="top" id="HhP-S3-auF"/>
                     <constraint firstItem="SFy-Xm-QCX" firstAttribute="leading" secondItem="bMT-6a-mSy" secondAttribute="leading" id="TVe-50-q8E"/>
                     <constraint firstAttribute="bottom" secondItem="AzS-rk-C8F" secondAttribute="bottom" id="VkW-i6-zqj"/>
+                    <constraint firstItem="Dxp-dW-dmV" firstAttribute="top" secondItem="SFy-Xm-QCX" secondAttribute="top" id="Zii-nP-3G9"/>
                     <constraint firstAttribute="trailing" secondItem="SFy-Xm-QCX" secondAttribute="trailing" id="fsa-bW-34x"/>
                     <constraint firstAttribute="trailing" secondItem="AzS-rk-C8F" secondAttribute="trailing" id="k2Z-q8-WXZ"/>
+                    <constraint firstItem="Dxp-dW-dmV" firstAttribute="bottom" secondItem="SFy-Xm-QCX" secondAttribute="bottom" id="lO3-6E-5j0"/>
                     <constraint firstItem="AzS-rk-C8F" firstAttribute="leading" secondItem="bMT-6a-mSy" secondAttribute="leading" id="op0-h4-XBt"/>
                     <constraint firstItem="ReV-zl-glQ" firstAttribute="leading" secondItem="bMT-6a-mSy" secondAttribute="leading" id="zqw-OL-hr7"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="241" height="440"/>
             <connections>
+                <outlet property="backgroundFallback" destination="Dxp-dW-dmV" id="H2l-uh-eBf"/>
+                <outlet property="noPosterLabel" destination="QFr-bW-6Va" id="cZy-Ni-dbr"/>
+                <outlet property="posterActivityIndicator" destination="KIq-rl-r9o" id="qvx-Sw-yMH"/>
                 <outlet property="posterImage" destination="SFy-Xm-QCX" id="VJq-IG-wYs"/>
                 <outlet property="starRatingView" destination="AzS-rk-C8F" id="jzS-Bi-CFt"/>
                 <outlet property="titleLabel" destination="ReV-zl-glQ" id="lc9-dE-UnZ"/>
