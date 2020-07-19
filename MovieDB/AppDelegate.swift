@@ -10,21 +10,8 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var configuration: Configuration?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        loadConfiguration()
+        ConfigurationLoader.shared.loadConfiguration()
         return true
-    }
-    
-    private func loadConfiguration() {
-        MovieService.shared.requestConfiguration { [weak self] result in
-            switch result {
-            case .success(let configuration):
-                self?.configuration = configuration
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
     }
 }

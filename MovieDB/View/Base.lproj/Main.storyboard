@@ -54,6 +54,10 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="7LX-tm-oWV"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="nEk-Ke-z2q">
+                                <rect key="frame" x="188.5" y="566.5" width="37" height="37"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.36078431372549019" green="0.62745098039215685" blue="0.82745098039215681" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -65,6 +69,8 @@
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="QR0-FP-knq" secondAttribute="trailing" constant="50" id="RU6-mM-mAB"/>
                             <constraint firstAttribute="bottom" secondItem="xuD-BS-xNK" secondAttribute="bottom" id="Rgq-wa-WHT"/>
                             <constraint firstItem="QR0-FP-knq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="50" id="d8x-6h-U90"/>
+                            <constraint firstItem="nEk-Ke-z2q" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerXWithinMargins" id="ieZ-L3-MbO"/>
+                            <constraint firstItem="nEk-Ke-z2q" firstAttribute="centerY" secondItem="xuD-BS-xNK" secondAttribute="centerY" id="jWq-oq-t0E"/>
                             <constraint firstAttribute="trailing" secondItem="xuD-BS-xNK" secondAttribute="trailing" id="mst-b0-Cmy"/>
                             <constraint firstItem="Fle-pP-UqP" firstAttribute="top" secondItem="QR0-FP-knq" secondAttribute="bottom" constant="4.5" id="tAw-CF-157"/>
                         </constraints>
@@ -73,6 +79,7 @@
                     <navigationItem key="navigationItem" id="33T-Wg-kHo"/>
                     <connections>
                         <outlet property="movieCollection" destination="xuD-BS-xNK" id="tye-SJ-gOB"/>
+                        <outlet property="movieListsActivityIndicator" destination="nEk-Ke-z2q" id="HgK-Nx-6b4"/>
                         <outlet property="searchBar" destination="Fle-pP-UqP" id="dCd-Iq-c9P"/>
                     </connections>
                 </viewController>

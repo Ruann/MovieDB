@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
         didSet {
             searchBar[keyPath: \.searchTextField].font = UIFont(name: "OpenSans-regular", size: 15.0)
             searchBar[keyPath: \.searchTextField].textColor = .white
+            searchBar.isUserInteractionEnabled = false
         }
     }
     
@@ -21,6 +22,7 @@ class HomeViewController: UIViewController {
             movieCollection.layer.roundCorners(cornerMasks: [.layerMaxXMinYCorner, .layerMinXMinYCorner], radius: 15)
         }
     }
+    @IBOutlet weak var movieListsActivityIndicator: UIActivityIndicatorView!
     
     private var movieCategories: [MovieCategory] = MovieCategory.allCategories
     
@@ -34,20 +36,40 @@ class HomeViewController: UIViewController {
         }
     }
     
+    private var isConfigurationLoaded: Bool {
+        Configuration.shared != nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         movieCollection.register(UINib(nibName: "MovieListCell", bundle: nil), forCellWithReuseIdentifier: "MovieListCell")
-
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.view.backgroundColor = UIColor.clear
+        
+        if !isConfigurationLoaded {
+            NotificationCenter.default.addObserver(self, selector: #selector(onConfigurationLoaded), name: .configurationLoaded, object: nil)
+        } else {
+            stopMovieListsActivityIndicator()
+        }
+    }
+    
+    @objc private func onConfigurationLoaded(_ notification:Notification) {
+        movieCollection.reloadData()
+        searchBar.isUserInteractionEnabled = true
+        stopMovieListsActivityIndicator()
+    }
+    
+    private func stopMovieListsActivityIndicator() {
+        movieListsActivityIndicator.stopAnimating()
+        movieListsActivityIndicator.isHidden = true
     }
 }
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard isConfigurationLoaded else {
+            return 0
+        }
+        
         return movieCategories.count
     }
     

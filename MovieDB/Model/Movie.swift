@@ -18,8 +18,7 @@ struct Movie: Codable {
     let releaseDate: String
     
     var backgroundImageFullPath: String {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let configuration = appDelegate.configuration,
+        guard let configuration = Configuration.shared,
             let backgroundImagePath = backgroundImagePath else {
             return ""
         }

@@ -15,8 +15,7 @@ struct MovieTile: Codable {
     let posterPath: String?
     
     var fullPosterPath: String {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let configuration = appDelegate.configuration,
+        guard let configuration = Configuration.shared,
             let posterPath = posterPath else {
             return ""
         }

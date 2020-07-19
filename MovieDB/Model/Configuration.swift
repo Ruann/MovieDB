@@ -9,6 +9,8 @@
 import Foundation
 
 struct Configuration: Codable {
+    static var shared: Configuration?
+    
     let images: ImagesConfiguration
 }
 
