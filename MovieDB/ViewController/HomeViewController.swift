@@ -9,7 +9,19 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet private weak var movieCollection: UICollectionView!
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar[keyPath: \.searchTextField].font = UIFont(name: "OpenSans-regular", size: 15.0)
+            searchBar[keyPath: \.searchTextField].textColor = .white
+        }
+    }
+    
+    @IBOutlet private weak var movieCollection: UICollectionView! {
+        didSet {
+            movieCollection.layer.roundCorners(cornerMasks: [.layerMaxXMinYCorner, .layerMinXMinYCorner], radius: 15)
+        }
+    }
+    
     private var movieCategories: [MovieCategory] = MovieCategory.allCategories
     
     private var searchTerm: String? {
@@ -26,16 +38,11 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         movieCollection.register(UINib(nibName: "MovieListCell", bundle: nil), forCellWithReuseIdentifier: "MovieListCell")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: animated)
-    }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clear
     }
 }
 
@@ -65,7 +72,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: UIScreen.main.bounds.width, height: 350)
+        return CGSize(width: UIScreen.main.bounds.width, height: 290)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
     }
 }
 
@@ -81,14 +92,9 @@ extension HomeViewController: MovieListCellDelegate {
     }
 }
 
-extension HomeViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        searchTerm = textField.text
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchTerm = searchBar.text
         movieCollection.reloadData()
     }
 }

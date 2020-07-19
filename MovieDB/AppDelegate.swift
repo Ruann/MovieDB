@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     private func loadConfiguration() {
         MovieService.shared.requestConfiguration { [weak self] result in
-            print("get Configuration")
             switch result {
             case .success(let configuration):
                 self?.configuration = configuration

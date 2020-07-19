@@ -19,12 +19,13 @@ class ImageDownloader {
     
     private init() {}
     
-    func getImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void) {
+    @discardableResult
+    func getImage(url: String, completion: @escaping (Result<UIImage, Error>) -> Void)  -> URLSessionDataTask? {
         guard let url = URL(string: url) else {
             DispatchQueue.main.async() {
                 completion(.failure(ImageDownloaderError.missingURL))
             }
-            return
+            return nil
         }
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
@@ -47,5 +48,6 @@ class ImageDownloader {
         }
         
         task.resume()
+        return task
     }
 }

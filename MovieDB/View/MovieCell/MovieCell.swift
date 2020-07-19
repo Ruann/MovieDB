@@ -9,13 +9,21 @@
 import UIKit
 
 class MovieCell: UICollectionViewCell {
-    @IBOutlet private weak var posterImage: UIImageView!
+    private var imageDownloadTask: URLSessionDataTask?
+    
+    @IBOutlet private weak var posterImage: UIImageView! {
+        didSet {
+            posterImage.layer.cornerRadius = 20
+            posterImage.layer.masksToBounds = true
+        }
+    }
     @IBOutlet private weak var titleLabel: UILabel!
+
     
     func prepare(title: String, posterUrl: String) {
         titleLabel.text = title
         
-        ImageDownloader.shared.getImage(url: posterUrl) { result in
+        imageDownloadTask = ImageDownloader.shared.getImage(url: posterUrl) { result in
             switch result {
             case .success(let image):
                 self.posterImage.image = image
@@ -26,6 +34,7 @@ class MovieCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
+        imageDownloadTask?.cancel()
         posterImage.image = nil 
         titleLabel.text = nil
     }

@@ -11,9 +11,13 @@ import UIKit
 class MovieDetailViewController: UIViewController {
     private var movieTile: MovieTile?
     
-    @IBOutlet weak var movieBackgroundImageView: UIImageView!
+    @IBOutlet weak var movieBackgroundImageView: UIImageView! {
+        didSet {
+            movieBackgroundImageView.layer.roundCorners(cornerMasks: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: 15.0)
+        }
+    }
     @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var movieDetailTextView: UITextView!
+    @IBOutlet weak var movieDetailLabel: UILabel!
     @IBOutlet weak var studioListLabel: UILabel!
     @IBOutlet weak var genreListLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
@@ -27,6 +31,11 @@ class MovieDetailViewController: UIViewController {
     func load(_ movie: MovieTile) {
         self.movieTile = movie
     }
+    
+    @IBAction func backButtonClicked(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     
     private func requestMovieDetails() {
         guard let movieTile = movieTile else { return }
@@ -42,7 +51,7 @@ class MovieDetailViewController: UIViewController {
     
     private func loadDetails(movie: Movie) {
         movieTitleLabel.text = movie.title
-        movieDetailTextView.text = movie.overview
+        movieDetailLabel.text = movie.overview
         studioListLabel.text = movie.studioList
         genreListLabel.text = movie.genreList
         releaseDateLabel.text = movie.releaseDate

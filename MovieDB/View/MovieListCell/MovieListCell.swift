@@ -24,6 +24,11 @@ class MovieListCell: UICollectionViewCell {
             movieCollection.dataSource = self
             movieCollection.delegate = self
             movieCollection.prefetchDataSource = self
+            
+            let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+            layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = 20.0
+            movieCollection.collectionViewLayout = layout
         }
     }
     
@@ -75,7 +80,6 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let movieCategoryProvider = movieCategoryProvider else { return }
-        
         guard let selectedMovie = movieCategoryProvider.movieTile(for: indexPath) else { return }
         
         delegate?.didSelect(movieTile: selectedMovie, movieListCell: self)
@@ -94,7 +98,11 @@ extension MovieListCell: UICollectionViewDataSourcePrefetching {
 
 extension MovieListCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 200, height: 280)
+        return CGSize(width: 150, height: 230)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 0.0)
     }
 }
 

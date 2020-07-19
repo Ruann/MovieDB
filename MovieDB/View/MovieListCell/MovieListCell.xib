@@ -6,25 +6,24 @@
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-SemiBold.ttf">
+            <string>OpenSans-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MovieListCell" id="wDW-QK-Sta" customClass="MovieListCell" customModule="MovieDB" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="701" height="210"/>
+            <rect key="frame" x="0.0" y="0.0" width="739" height="210"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0vY-cs-uSI">
-                <rect key="frame" x="0.0" y="0.0" width="701" height="210"/>
+                <rect key="frame" x="0.0" y="0.0" width="739" height="210"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGn-0n-Qog">
-                        <rect key="frame" x="20" y="14" width="42" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="G1l-Wo-kOS">
-                        <rect key="frame" x="0.0" y="41" width="701" height="169"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <rect key="frame" x="0.0" y="17.5" width="739" height="192.5"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8ub-xr-QBR">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -32,22 +31,28 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                     </collectionView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGn-0n-Qog">
+                        <rect key="frame" x="20" y="0.0" width="79.5" height="17.5"/>
+                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="15"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="centerX" secondItem="0vY-cs-uSI" secondAttribute="centerX" id="BFE-wl-t6o"/>
-                    <constraint firstItem="uGn-0n-Qog" firstAttribute="top" secondItem="0vY-cs-uSI" secondAttribute="top" constant="14" id="JJ2-Bf-HVG"/>
-                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="top" secondItem="uGn-0n-Qog" secondAttribute="bottom" constant="6" id="VjB-1Y-Xdp"/>
-                    <constraint firstItem="uGn-0n-Qog" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leadingMargin" id="fQr-6f-gJG"/>
-                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" id="l94-sN-K6b"/>
-                    <constraint firstAttribute="bottom" secondItem="G1l-Wo-kOS" secondAttribute="bottom" id="yza-Fo-PyC"/>
+                    <constraint firstAttribute="bottom" secondItem="G1l-Wo-kOS" secondAttribute="bottom" id="2FH-dR-nsh"/>
+                    <constraint firstItem="uGn-0n-Qog" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" constant="20" id="2Nl-Gw-Oia"/>
+                    <constraint firstItem="uGn-0n-Qog" firstAttribute="top" secondItem="0vY-cs-uSI" secondAttribute="top" id="BDc-lF-LV3"/>
+                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" id="RSn-Yw-vZd"/>
+                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="top" secondItem="uGn-0n-Qog" secondAttribute="bottom" id="c9Y-zx-nqi"/>
+                    <constraint firstAttribute="trailing" secondItem="G1l-Wo-kOS" secondAttribute="trailing" id="jhx-CY-EY2"/>
                 </constraints>
             </collectionViewCellContentView>
-            <size key="customSize" width="701" height="210"/>
+            <size key="customSize" width="739" height="210"/>
             <connections>
                 <outlet property="categoryLabel" destination="uGn-0n-Qog" id="UVY-re-ygI"/>
                 <outlet property="movieCollection" destination="G1l-Wo-kOS" id="bs0-yP-0kO"/>
             </connections>
-            <point key="canvasLocation" x="258.69565217391306" y="123.21428571428571"/>
+            <point key="canvasLocation" x="231.15942028985509" y="123.21428571428571"/>
         </collectionViewCell>
     </objects>
 </document>
