@@ -9,21 +9,28 @@
 import Foundation
 
 enum MovieCategory: String,  CaseIterable {
-    case NowPlaying = "now_playing"
-    case Popular = "popular"
-    case TopRated = "top_rated"
-    case Upcoming = "upcoming"
+    case nowPlaying = "now_playing"
+    case popular = "popular"
+    case topRated = "top_rated"
+    case upcoming = "upcoming"
+    case search
     
     var displayName: String {
         switch self {
-            case .NowPlaying:
+            case .nowPlaying:
                 return "Now Playing"
-            case .Popular:
+            case .popular:
                 return "Popular"
-            case .TopRated:
+            case .topRated:
                 return "Top Rated"
-            case .Upcoming:
+            case .upcoming:
                 return "Upcoming"
+            case .search:
+                return "Search"
         }
+    }
+    
+    static var allCategories: [MovieCategory] {
+        MovieCategory.allCases.filter({ $0 != .search })
     }
 }

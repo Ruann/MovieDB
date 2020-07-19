@@ -12,11 +12,12 @@ import UIKit
 struct MovieTile: Codable {
     let movieId: Int
     let title: String
-    let posterPath: String
+    let posterPath: String?
     
     var fullPosterPath: String {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate,
-            let configuration = appDelegate.configuration else {
+            let configuration = appDelegate.configuration,
+            let posterPath = posterPath else {
             return ""
         }
         

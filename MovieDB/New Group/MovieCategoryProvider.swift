@@ -18,6 +18,7 @@ class MovieCategoryProvider {
     
     private var movieList: MovieList?
     private var movieCategory: MovieCategory
+    private var searchTerm: String?
 
     private var currentPage = 1
     private var total = 0
@@ -40,12 +41,47 @@ class MovieCategoryProvider {
         self.movieCategory = movieCategory
     }
     
+    init(searchText: String) {
+        self.movieCategory = .search
+        self.searchTerm = searchText
+    }
+    
     func requestMovies() {
+        switch movieCategory {
+            case .search:
+                requestMatechedMovies()
+            default:
+                requestMoviesFromCategory()
+        }
+    }
+    
+    func requestMoviesFromCategory() {
         guard !isFetchInProgress else { return }
         
         isFetchInProgress = true
         
         MovieService.shared.requestMovies(from: movieCategory, page: currentPage) { result in
+            switch result {
+            case .success(let movieList):
+                self.isFetchInProgress = false
+                self.currentPage += 1
+                self.total = movieList.total
+                
+                self.loadNewMovies(newMovieList: movieList)
+            case .failure(let error):
+                self.isFetchInProgress = false
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func requestMatechedMovies() {
+        guard !isFetchInProgress else { return }
+        
+        guard let searchTerm = searchTerm else { return }
+        isFetchInProgress = true
+        
+        MovieService.shared.requestMovies(searchCriteria: searchTerm, page: currentPage) { result in
             switch result {
             case .success(let movieList):
                 self.isFetchInProgress = false

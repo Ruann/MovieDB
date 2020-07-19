@@ -13,6 +13,9 @@ enum NetworkError: Error {
 }
 
 class MovieDBApi {
+    var latestSearchRequest: URLSessionDataTask?
+    var latestSearchTerm: String?
+    
     func requestConfiguration(completion: @escaping (Result<Configuration, Error>) -> Void) {
         let urlString = "https://api.themoviedb.org/3/configuration?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
         requestData(url: urlString, completion: completion)
@@ -28,9 +31,22 @@ class MovieDBApi {
         requestData(url: urlString, completion: completion)
     }
     
-    private func requestData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) {
+    func requestMovies(searchCriteria: String, page: Int, completion: @escaping (Result<MovieList, Error>) -> Void) {
+        let urlString = "https://api.themoviedb.org/3/search/movie?query=\(searchCriteria)&page=\(page)&api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
+        
+        if searchCriteria != latestSearchTerm {
+            latestSearchRequest?.cancel()
+            latestSearchTerm = searchCriteria
+        }
+        print(urlString)
+        latestSearchRequest = requestData(url: urlString, completion: completion)
+    }
+    
+    @discardableResult
+    private func requestData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionDataTask? {
+        
         guard let url = URL(string: url) else {
-            return
+            return nil
         }
         let session = URLSession.shared
         
@@ -66,5 +82,6 @@ class MovieDBApi {
         })
         
         task.resume()
+        return task
     }
 }

@@ -10,7 +10,17 @@ import UIKit
 
 class HomeViewController: UIViewController {
     @IBOutlet private weak var movieCollection: UICollectionView!
-    private var movieCategories = MovieCategory.allCases
+    private var movieCategories: [MovieCategory] = MovieCategory.allCategories
+    
+    private var searchTerm: String? {
+        didSet {
+            if searchTerm != nil {
+                movieCategories = [.search]
+            } else {
+                movieCategories = MovieCategory.allCategories
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +49,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return UICollectionViewCell()
         }
         
-        let movieProvider = MovieCategoryProvider(movieCategory: movieCategories[indexPath.row])
-        movieListCell.prepare(movieCategoryProvider: movieProvider)
+        if let searchTerm = searchTerm {
+            let movieProvider = MovieCategoryProvider(searchText: searchTerm)
+            movieListCell.prepare(movieCategoryProvider: movieProvider)
+        } else {
+            let movieProvider = MovieCategoryProvider(movieCategory: movieCategories[indexPath.row])
+            movieListCell.prepare(movieCategoryProvider: movieProvider)
+        }
+        
         movieListCell.delegate = self
 
         return movieListCell
@@ -62,5 +78,17 @@ extension HomeViewController: MovieListCellDelegate {
         movieDetailViewController.load(movieTile)
         
         navigationController?.pushViewController(movieDetailViewController, animated: true)
+    }
+}
+
+extension HomeViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        searchTerm = textField.text
+        movieCollection.reloadData()
     }
 }
