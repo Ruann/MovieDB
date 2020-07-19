@@ -18,10 +18,12 @@ class MovieCell: UICollectionViewCell {
         }
     }
     @IBOutlet private weak var titleLabel: UILabel!
-
+    @IBOutlet weak var starRatingView: StarRatingView!
     
-    func prepare(title: String, posterUrl: String) {
+    
+    func prepare(title: String, posterUrl: String, voteAverage: Double) {
         titleLabel.text = title
+        starRatingView.setupStars(voteAverage: voteAverage)
         
         imageDownloadTask = ImageDownloader.shared.getImage(url: posterUrl) { result in
             switch result {

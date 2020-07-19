@@ -26,24 +26,40 @@ class StarRatingView: UIView {
         commonInit()
     }
     
+    func setupStars(voteAverage: Double) {
+        print(voteAverage)
+        if voteAverage > 1.0 {
+            firstStarImageView.alpha = 1
+        }
+        
+        if voteAverage > 2.0 {
+            secondStarImageView.alpha = 1
+        }
+        
+        if voteAverage > 4.0 {
+            thirdStarImageView.alpha = 1
+        }
+        
+        if voteAverage > 6.0 {
+            fourthStarImageView.alpha = 1
+        }
+        
+        if voteAverage > 8.0 {
+            fifthStarImageView.alpha = 1
+        }
+    }
+    
     private func commonInit() {
         Bundle.main.loadNibNamed("StarRatingView", owner: self, options: nil)
-//        addSubview(contentView)
-//        contentView.frame = self.bounds
-//        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        contentView.fixInView(self)
-    }
-}
-
-extension UIView
-{
-    func fixInView(_ container: UIView!) -> Void{
-        self.translatesAutoresizingMaskIntoConstraints = false;
-        self.frame = container.frame;
-        container.addSubview(self);
-        NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: container, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: container, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: container, attribute: .top, multiplier: 1.0, constant: 0).isActive = true
-        NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: container, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.frame = frame
+        addSubview(contentView)
+        
+        NSLayoutConstraint.activate([
+            contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            contentView.topAnchor.constraint(equalTo: topAnchor),
+            contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
 }

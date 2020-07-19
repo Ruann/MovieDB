@@ -16,6 +16,7 @@ struct Movie: Codable {
     let genres: [MovieGenre]
     let studios: [ProductionCompany]
     let releaseDate: String
+    let voteAverage: Double?
     
     var backgroundImageFullPath: String {
         guard let configuration = Configuration.shared,
@@ -44,5 +45,6 @@ struct Movie: Codable {
         case genres
         case studios = "production_companies"
         case releaseDate = "release_date"
+        case voteAverage = "vote_average"
     }
 }

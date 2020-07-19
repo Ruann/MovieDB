@@ -73,7 +73,8 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
                 return movieCell
         }
         
-        movieCell.prepare(title: movieTile.title, posterUrl: movieTile.fullPosterPath)
+        let voteAverage = movieTile.voteAverage ?? 0.0
+        movieCell.prepare(title: movieTile.title, posterUrl: movieTile.fullPosterPath, voteAverage: voteAverage)
         
         return movieCell
     }

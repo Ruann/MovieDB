@@ -13,6 +13,7 @@ struct MovieTile: Codable {
     let movieId: Int
     let title: String
     let posterPath: String?
+    let voteAverage: Double?
     
     var fullPosterPath: String {
         guard let configuration = Configuration.shared,
@@ -30,5 +31,6 @@ struct MovieTile: Codable {
         case movieId = "id"
         case title
         case posterPath = "poster_path"
+        case voteAverage = "vote_average"
     }
 }

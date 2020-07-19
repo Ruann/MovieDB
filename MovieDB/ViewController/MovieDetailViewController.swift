@@ -21,6 +21,7 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var studioListLabel: UILabel!
     @IBOutlet weak var genreListLabel: UILabel!
     @IBOutlet weak var releaseDateLabel: UILabel!
+    @IBOutlet weak var starRatingView: StarRatingView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +58,7 @@ class MovieDetailViewController: UIViewController {
         releaseDateLabel.text = movie.releaseDate
         
         loadBackgroundImage(url: movie.backgroundImageFullPath)
+        starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)
     }
     
     

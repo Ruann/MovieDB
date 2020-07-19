@@ -207,6 +207,7 @@
                         <outlet property="movieDetailLabel" destination="0Ye-Mz-V9Y" id="84R-hB-Y1a"/>
                         <outlet property="movieTitleLabel" destination="faw-eE-HrD" id="Q2x-2Q-0x6"/>
                         <outlet property="releaseDateLabel" destination="LNH-Qk-fOX" id="JKq-KU-oWP"/>
+                        <outlet property="starRatingView" destination="NWV-AE-oGa" id="zpU-iH-DPM"/>
                         <outlet property="studioListLabel" destination="iHB-o7-2Mv" id="jbe-aT-9Tw"/>
                     </connections>
                 </viewController>

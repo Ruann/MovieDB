@@ -57,6 +57,7 @@
             <size key="customSize" width="241" height="440"/>
             <connections>
                 <outlet property="posterImage" destination="SFy-Xm-QCX" id="VJq-IG-wYs"/>
+                <outlet property="starRatingView" destination="AzS-rk-C8F" id="jzS-Bi-CFt"/>
                 <outlet property="titleLabel" destination="ReV-zl-glQ" id="lc9-dE-UnZ"/>
             </connections>
             <point key="canvasLocation" x="4.3478260869565224" y="102.45535714285714"/>
