@@ -37,6 +37,8 @@
 		AD8FF1BD24C5DEDA00842946 /* UILabelExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8FF1BC24C5DEDA00842946 /* UILabelExtensions.swift */; };
 		AD8FF1BF24C5DF8D00842946 /* SearchBarExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8FF1BE24C5DF8D00842946 /* SearchBarExtensions.swift */; };
 		AD8FF1C224C5F98A00842946 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8FF1C124C5F98A00842946 /* UIViewControllerExtensions.swift */; };
+		AD8FF1C424C612FB00842946 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = AD8FF1C324C612FB00842946 /* Localizable.strings */; };
+		AD8FF1C624C613F100842946 /* AppStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD8FF1C524C613F100842946 /* AppStrings.swift */; };
 		ADEEF6C524C337B400257E34 /* MovieCategoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEEF6C424C337B400257E34 /* MovieCategoryProvider.swift */; };
 		ADEEF6C724C3436B00257E34 /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEEF6C624C3436B00257E34 /* MovieDetailViewController.swift */; };
 		ADEEF6C924C3562800257E34 /* MovieGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADEEF6C824C3562800257E34 /* MovieGenre.swift */; };
@@ -89,6 +91,8 @@
 		AD8FF1BC24C5DEDA00842946 /* UILabelExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabelExtensions.swift; sourceTree = "<group>"; };
 		AD8FF1BE24C5DF8D00842946 /* SearchBarExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarExtensions.swift; sourceTree = "<group>"; };
 		AD8FF1C124C5F98A00842946 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
+		AD8FF1C324C612FB00842946 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		AD8FF1C524C613F100842946 /* AppStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStrings.swift; sourceTree = "<group>"; };
 		ADEEF6C424C337B400257E34 /* MovieCategoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategoryProvider.swift; sourceTree = "<group>"; };
 		ADEEF6C624C3436B00257E34 /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
 		ADEEF6C824C3562800257E34 /* MovieGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieGenre.swift; sourceTree = "<group>"; };
@@ -147,6 +151,7 @@
 				AD4A5F0424C1EBE500D3C485 /* SceneDelegate.swift */,
 				AD4A5F0B24C1EBE500D3C485 /* Assets.xcassets */,
 				AD4A5F1024C1EBE500D3C485 /* Info.plist */,
+				AD8FF1C324C612FB00842946 /* Localizable.strings */,
 			);
 			path = MovieDB;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				AD8FF1BC24C5DEDA00842946 /* UILabelExtensions.swift */,
 				AD8FF1BE24C5DF8D00842946 /* SearchBarExtensions.swift */,
 				AD8FF1C124C5F98A00842946 /* UIViewControllerExtensions.swift */,
+				AD8FF1C524C613F100842946 /* AppStrings.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -365,6 +371,7 @@
 				AD7291F924C4769C003F351E /* OpenSans-SemiBold.ttf in Resources */,
 				AD4A5F4224C23E1F00D3C485 /* MovieListCell.xib in Resources */,
 				AD7291FB24C47D9C003F351E /* StarRatingView.xib in Resources */,
+				AD8FF1C424C612FB00842946 /* Localizable.strings in Resources */,
 				AD4A5F0F24C1EBE500D3C485 /* LaunchScreen.storyboard in Resources */,
 				AD4A5F0C24C1EBE500D3C485 /* Assets.xcassets in Resources */,
 				AD4A5F2924C1EE8300D3C485 /* MovieCell.xib in Resources */,
@@ -386,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD8FF1C624C613F100842946 /* AppStrings.swift in Sources */,
 				AD4A5F4424C2451B00D3C485 /* MovieListCell.swift in Sources */,
 				AD8FF1BD24C5DEDA00842946 /* UILabelExtensions.swift in Sources */,
 				AD4A5F4624C2613A00D3C485 /* MovieCategoy.swift in Sources */,

@@ -97,6 +97,7 @@
                         <outlet property="movieCollection" destination="xuD-BS-xNK" id="tye-SJ-gOB"/>
                         <outlet property="movieListsActivityIndicator" destination="nEk-Ke-z2q" id="HgK-Nx-6b4"/>
                         <outlet property="searchBar" destination="Fle-pP-UqP" id="dCd-Iq-c9P"/>
+                        <outlet property="searchHeaderLabel" destination="QR0-FP-knq" id="Wzn-9b-Xor"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -219,13 +220,16 @@
                         <viewLayoutGuide key="safeArea" id="8tx-Hx-YfI"/>
                     </view>
                     <connections>
+                        <outlet property="genreLabel" destination="sbz-cT-WXY" id="D8d-8F-3lL"/>
                         <outlet property="genreListLabel" destination="iaV-2u-qTO" id="tkc-mo-CAC"/>
                         <outlet property="movieBackgroundImageView" destination="HiJ-wt-nEv" id="LIJ-eh-bzs"/>
                         <outlet property="movieDetailLabel" destination="0Ye-Mz-V9Y" id="84R-hB-Y1a"/>
                         <outlet property="movieTitleLabel" destination="faw-eE-HrD" id="Q2x-2Q-0x6"/>
                         <outlet property="releaseDateLabel" destination="LNH-Qk-fOX" id="JKq-KU-oWP"/>
+                        <outlet property="releaseLabel" destination="hN1-Bm-KAQ" id="cCN-71-Ibg"/>
                         <outlet property="starRatingView" destination="NWV-AE-oGa" id="zpU-iH-DPM"/>
                         <outlet property="studioListLabel" destination="iHB-o7-2Mv" id="jbe-aT-9Tw"/>
+                        <outlet property="studiosLabel" destination="h7i-9o-NfU" id="FEc-iQ-dvd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C7o-ze-mSf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

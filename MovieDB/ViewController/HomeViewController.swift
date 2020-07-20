@@ -14,6 +14,11 @@ class HomeViewController: UIViewController {
     
     //MARK: - Outlets
     
+    @IBOutlet weak var searchHeaderLabel: UILabel! {
+        didSet {
+            searchHeaderLabel.text = AppStrings.Home.searchHeader
+        }
+    }
     @IBOutlet weak var headerSearchLabel: UILabel! {
         didSet {
             headerSearchLabel.addLineSpacing(headerSearchLabelLineSpacing)

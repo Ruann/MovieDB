@@ -26,6 +26,22 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
     
+    @IBOutlet weak var studiosLabel: UILabel! {
+        didSet {
+            studiosLabel.text = AppStrings.MovieDetail.studios
+        }
+    }
+    @IBOutlet weak var genreLabel: UILabel! {
+        didSet {
+            genreLabel.text = AppStrings.MovieDetail.genre
+        }
+    }
+    @IBOutlet weak var releaseLabel: UILabel! {
+        didSet {
+            releaseLabel.text = AppStrings.MovieDetail.release
+        }
+    }
+    
     //MARK: - Properties
     
     static var identifier = "MovieDetailViewController"

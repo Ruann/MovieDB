@@ -18,15 +18,15 @@ enum MovieCategory: String,  CaseIterable {
     var displayName: String {
         switch self {
             case .nowPlaying:
-                return "Now Playing"
+                return AppStrings.MovieCategory.nowPlaying
             case .popular:
-                return "Popular"
+                return AppStrings.MovieCategory.popular
             case .topRated:
-                return "Top Rated"
+                return AppStrings.MovieCategory.topRated
             case .upcoming:
-                return "Upcoming"
+                return AppStrings.MovieCategory.upcoming
             case .search:
-                return "Search Results"
+                return AppStrings.MovieCategory.searchResults
         }
     }
     
