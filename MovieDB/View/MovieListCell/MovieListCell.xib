@@ -22,7 +22,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="G1l-Wo-kOS">
-                        <rect key="frame" x="0.0" y="17.5" width="739" height="192.5"/>
+                        <rect key="frame" x="0.0" y="43.5" width="739" height="166.5"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8ub-xr-QBR">
                             <size key="itemSize" width="128" height="128"/>
@@ -32,7 +32,7 @@
                         </collectionViewFlowLayout>
                     </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGn-0n-Qog">
-                        <rect key="frame" x="20" y="0.0" width="79.5" height="17.5"/>
+                        <rect key="frame" x="20" y="0.0" width="86" height="20.5"/>
                         <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -43,7 +43,7 @@
                     <constraint firstItem="uGn-0n-Qog" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" constant="20" id="2Nl-Gw-Oia"/>
                     <constraint firstItem="uGn-0n-Qog" firstAttribute="top" secondItem="0vY-cs-uSI" secondAttribute="top" id="BDc-lF-LV3"/>
                     <constraint firstItem="G1l-Wo-kOS" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" id="RSn-Yw-vZd"/>
-                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="top" secondItem="uGn-0n-Qog" secondAttribute="bottom" id="c9Y-zx-nqi"/>
+                    <constraint firstItem="G1l-Wo-kOS" firstAttribute="top" secondItem="uGn-0n-Qog" secondAttribute="bottom" constant="23" id="c9Y-zx-nqi"/>
                     <constraint firstAttribute="trailing" secondItem="G1l-Wo-kOS" secondAttribute="trailing" id="jhx-CY-EY2"/>
                 </constraints>
             </collectionViewCellContentView>

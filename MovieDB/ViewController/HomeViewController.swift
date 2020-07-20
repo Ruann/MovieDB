@@ -9,10 +9,23 @@
 import UIKit
 
 class HomeViewController: UIViewController {
+    @IBOutlet weak var headerSearchLabel: UILabel! {
+        didSet {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 5
+            let attrString = NSMutableAttributedString(string: headerSearchLabel.text ?? "")
+            attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                    value:paragraphStyle,
+                                    range:NSMakeRange(0, attrString.length))
+            headerSearchLabel.attributedText = attrString
+        }
+    }
+    
     @IBOutlet weak var searchBar: UISearchBar! {
         didSet {
             searchBar[keyPath: \.searchTextField].font = UIFont(name: "OpenSans-regular", size: 15.0)
             searchBar[keyPath: \.searchTextField].textColor = .white
+            searchBar.searchTextField.leftView?.tintColor = .white
             searchBar.isUserInteractionEnabled = false
         }
     }
@@ -23,6 +36,7 @@ class HomeViewController: UIViewController {
         }
     }
     @IBOutlet weak var movieListsActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var backToCategoriesButton: UIButton!
     
     private var movieCategories: [MovieCategory] = MovieCategory.allCategories
     
@@ -56,6 +70,13 @@ class HomeViewController: UIViewController {
         movieCollection.reloadData()
         searchBar.isUserInteractionEnabled = true
         stopMovieListsActivityIndicator()
+    }
+    
+    @IBAction func backToCategoriesButtonClicked(_ sender: Any) {
+        searchTerm = nil
+        movieCollection.reloadData()
+        backToCategoriesButton.isHidden = true
+        searchBar.text = nil
     }
     
     private func stopMovieListsActivityIndicator() {
@@ -98,7 +119,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20.0, left: 0.0, bottom: 0.0, right: 0.0)
+        return UIEdgeInsets(top: 40.0, left: 0.0, bottom: 0.0, right: 0.0)
     }
 }
 
@@ -117,6 +138,7 @@ extension HomeViewController: MovieListCellDelegate {
 extension HomeViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchTerm = searchBar.text
+        backToCategoriesButton.isHidden = false
         movieCollection.reloadData()
     }
 }

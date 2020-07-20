@@ -27,7 +27,6 @@ class StarRatingView: UIView {
     }
     
     func setupStars(voteAverage: Double) {
-        print(voteAverage)
         if voteAverage > 1.0 {
             firstStarImageView.alpha = 1
         }

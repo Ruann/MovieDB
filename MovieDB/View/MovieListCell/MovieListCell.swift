@@ -36,7 +36,7 @@ class MovieListCell: UICollectionViewCell {
         self.movieCategoryProvider = movieCategoryProvider
         movieCategoryProvider.delegate = self
         
-        self.categoryLabel.text = movieCategoryProvider.displayName
+        self.categoryLabel.text = movieCategoryProvider.displayName.uppercased()
         
         movieCategoryProvider.requestMovies()
     }

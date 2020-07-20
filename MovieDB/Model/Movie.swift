@@ -38,6 +38,18 @@ struct Movie: Codable {
         studios.map({ $0.name }).joined(separator: ", ")
     }
     
+    var yearReleased: String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        guard let date = dateFormatter.date(from:releaseDate) else {
+            return nil
+        }
+
+        let calendar = NSCalendar.current
+        let components = calendar.dateComponents([.day , .month , .year], from: date)
+        return "\(components.year ?? 0)"
+    }
+    
     private enum CodingKeys : String, CodingKey {
         case title
         case overview

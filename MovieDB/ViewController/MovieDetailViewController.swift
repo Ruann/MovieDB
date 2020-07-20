@@ -52,10 +52,10 @@ class MovieDetailViewController: UIViewController {
     
     private func loadDetails(movie: Movie) {
         movieTitleLabel.text = movie.title
-        movieDetailLabel.text = movie.overview
-        studioListLabel.text = movie.studioList
-        genreListLabel.text = movie.genreList
-        releaseDateLabel.text = movie.releaseDate
+        movieDetailLabel.text = !movie.overview .isEmpty ? movie.overview : "None summary provide"
+        studioListLabel.text = !movie.studioList.isEmpty ? movie.studioList : "Not Informed"
+        genreListLabel.text = !movie.genreList.isEmpty ? movie.genreList : "Not Informed"
+        releaseDateLabel.text = movie.yearReleased
         
         loadBackgroundImage(urlString: movie.backgroundImageFullPath)
         starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)

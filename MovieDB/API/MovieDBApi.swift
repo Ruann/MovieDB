@@ -38,7 +38,7 @@ class MovieDBApi {
             latestSearchRequest?.cancel()
             latestSearchTerm = searchCriteria
         }
-        print(urlString)
+        
         latestSearchRequest = requestData(url: urlString, completion: completion)
     }
     
