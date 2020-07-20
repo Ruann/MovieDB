@@ -21,33 +21,23 @@ struct Movie: Codable {
     var backgroundImageFullPath: String {
         guard let configuration = Configuration.shared,
             let backgroundImagePath = backgroundImagePath else {
-            return ""
+                return String.empty
         }
+    
         
-        let baseUrl = configuration.images.baseUrl
-        let posterSize = configuration.images.backdropsizes.first ?? ""
-        
-        return "\(baseUrl)\(posterSize)\(backgroundImagePath)"
+        return configuration.backgroundImageBaseUrl+backgroundImagePath
     }
     
     var genreList: String {
-        genres.map({ $0.name }).joined(separator: ", ")
+        genres.map({ $0.name }).joined(separator: String.separatorForList)
     }
     
     var studioList: String {
-        studios.map({ $0.name }).joined(separator: ", ")
+        studios.map({ $0.name }).joined(separator: String.separatorForList)
     }
     
     var yearReleased: String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        guard let date = dateFormatter.date(from:releaseDate) else {
-            return nil
-        }
-
-        let calendar = NSCalendar.current
-        let components = calendar.dateComponents([.day , .month , .year], from: date)
-        return "\(components.year ?? 0)"
+        DateHelper.shared.getYearFrom(string: releaseDate)
     }
     
     private enum CodingKeys : String, CodingKey {

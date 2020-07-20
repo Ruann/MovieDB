@@ -9,18 +9,19 @@
 import UIKit
 
 class MovieCell: UICollectionViewCell {
-    private var imageDownloadTask: URLSessionDataTask?
+    
+    //MARK: - Outlets
     
     @IBOutlet private weak var posterImage: UIImageView! {
         didSet {
-            posterImage.layer.cornerRadius = 20
+            posterImage.layer.cornerRadius = posterRadius
             posterImage.layer.masksToBounds = true
         }
     }
     
     @IBOutlet weak var backgroundFallback: UIView! {
         didSet {
-            backgroundFallback.layer.cornerRadius = 20
+            backgroundFallback.layer.cornerRadius = posterRadius
             backgroundFallback.layer.masksToBounds = true
         }
     }
@@ -31,11 +32,35 @@ class MovieCell: UICollectionViewCell {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet weak var starRatingView: StarRatingView!
     
+    //MARK: - Properties
+    
+    static var nib = UINib(nibName: "MovieCell", bundle: nil)
+    static var identifier = "MovieCell"
+    
+    private var imageDownloadTask: URLSessionDataTask?
+    
+    //MARK: - Constants
+    
+    let posterRadius: CGFloat = 20.0
+    
+    //MARK: - Life Cycle
+    
     func prepare(title: String, posterUrl: String, voteAverage: Double) {
         titleLabel.text = title
         starRatingView.setupStars(voteAverage: voteAverage)
         loadPosterImage(posterUrlString: posterUrl)
     }
+    
+    override func prepareForReuse() {
+        imageDownloadTask?.cancel()
+        posterImage.image = nil
+        titleLabel.text = nil
+        noPosterLabel.isHidden = true
+        posterActivityIndicator.isHidden = false
+        starRatingView.reset()
+    }
+    
+    //MARK: - Private Methods
     
     private func loadPosterImage(posterUrlString: String) {
         guard let posterUrl = URL(string: posterUrlString) else {
@@ -56,13 +81,5 @@ class MovieCell: UICollectionViewCell {
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    override func prepareForReuse() {
-        imageDownloadTask?.cancel()
-        posterImage.image = nil 
-        titleLabel.text = nil
-        noPosterLabel.isHidden = true
-        posterActivityIndicator.isHidden = false
     }
 }

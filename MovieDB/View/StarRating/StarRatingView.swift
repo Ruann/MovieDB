@@ -8,13 +8,29 @@
 
 import UIKit
 
+
 class StarRatingView: UIView {
+    
+    //MARK: - Outlets
+    
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var firstStarImageView: UIImageView!
     @IBOutlet weak var secondStarImageView: UIImageView!
     @IBOutlet weak var thirdStarImageView: UIImageView!
     @IBOutlet weak var fourthStarImageView: UIImageView!
     @IBOutlet weak var fifthStarImageView: UIImageView!
+    
+    //MARK: - Constants
+    
+    private let nibName = "StarRatingView"
+    private let firstStarMinimunVoteAverage = 1.0
+    private let secondStarMinimunVoteAverage = 2.0
+    private let thirdStarMinimunVoteAverage = 4.0
+    private let fourhtStarMinimunVoteAverage = 6.0
+    private let fifthStarMinimunVoteAverage = 8.0
+    private let starDisableAlpha: CGFloat = 0.3
+    
+    //MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,30 +42,8 @@ class StarRatingView: UIView {
         commonInit()
     }
     
-    func setupStars(voteAverage: Double) {
-        if voteAverage > 1.0 {
-            firstStarImageView.alpha = 1
-        }
-        
-        if voteAverage > 2.0 {
-            secondStarImageView.alpha = 1
-        }
-        
-        if voteAverage > 4.0 {
-            thirdStarImageView.alpha = 1
-        }
-        
-        if voteAverage > 6.0 {
-            fourthStarImageView.alpha = 1
-        }
-        
-        if voteAverage > 8.0 {
-            fifthStarImageView.alpha = 1
-        }
-    }
-    
     private func commonInit() {
-        Bundle.main.loadNibNamed("StarRatingView", owner: self, options: nil)
+        Bundle.main.loadNibNamed(nibName, owner: self, options: nil)
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.frame = frame
         addSubview(contentView)
@@ -60,5 +54,37 @@ class StarRatingView: UIView {
             contentView.topAnchor.constraint(equalTo: topAnchor),
             contentView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
+    }
+    
+    //MARK: - Public Methods
+    
+    func setupStars(voteAverage: Double) {
+        if voteAverage > firstStarMinimunVoteAverage {
+            firstStarImageView.alpha = 1
+        }
+        
+        if voteAverage > secondStarMinimunVoteAverage {
+            secondStarImageView.alpha = 1
+        }
+        
+        if voteAverage > thirdStarMinimunVoteAverage {
+            thirdStarImageView.alpha = 1
+        }
+        
+        if voteAverage > fourhtStarMinimunVoteAverage {
+            fourthStarImageView.alpha = 1
+        }
+        
+        if voteAverage > fifthStarMinimunVoteAverage {
+            fifthStarImageView.alpha = 1
+        }
+    }
+    
+    func reset() {
+        firstStarImageView.alpha = starDisableAlpha
+        secondStarImageView.alpha = starDisableAlpha
+        thirdStarImageView.alpha = starDisableAlpha
+        fourthStarImageView.alpha = starDisableAlpha
+        fifthStarImageView.alpha = starDisableAlpha
     }
 }

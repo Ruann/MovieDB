@@ -18,13 +18,10 @@ struct MovieTile: Codable {
     var fullPosterPath: String {
         guard let configuration = Configuration.shared,
             let posterPath = posterPath else {
-            return ""
+            return String.empty
         }
         
-        let baseUrl = configuration.images.baseUrl
-        let posterSize = configuration.images.posterSizes.first ?? ""
-        
-        return "\(baseUrl)\(posterSize)\(posterPath)"
+        return configuration.posterBaseUrl+posterPath
     }
     
     private enum CodingKeys : String, CodingKey {

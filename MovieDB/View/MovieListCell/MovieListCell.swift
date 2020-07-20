@@ -8,29 +8,48 @@
 
 import UIKit
 
+//MARK: - MovieListCellDelegate
+
 protocol MovieListCellDelegate {
     func didSelect(movieTile: MovieTile, movieListCell: MovieListCell)
 }
 
+//MARK: - MovieListCell
+
 class MovieListCell: UICollectionViewCell {
-    var delegate: MovieListCellDelegate?
     
-    private var movieCategoryProvider: MovieCategoryProvider?
+    //MARK: - Outlets
     
     @IBOutlet private weak var categoryLabel: UILabel!
     @IBOutlet private weak var movieCollection: UICollectionView! {
         didSet {
-            movieCollection.register(UINib(nibName: "MovieCell", bundle: nil), forCellWithReuseIdentifier: "MovieCell")
+            movieCollection.register(MovieCell.nib, forCellWithReuseIdentifier: MovieCell.identifier)
             movieCollection.dataSource = self
             movieCollection.delegate = self
             movieCollection.prefetchDataSource = self
             
             let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
             layout.scrollDirection = .horizontal
-            layout.minimumLineSpacing = 20.0
+            layout.minimumLineSpacing = cellLineSpacing
             movieCollection.collectionViewLayout = layout
         }
     }
+    
+    //MARK: - Properties
+    
+    static var nib = UINib(nibName: "MovieListCell", bundle: nil)
+    static var identifier = "MovieListCell"
+    
+    var delegate: MovieListCellDelegate?
+    
+    private var movieCategoryProvider: MovieCategoryProvider?
+    
+    //MARK: - Constante
+    let cellLineSpacing: CGFloat = 20.0
+    let cellSize = CGSize(width: 150, height: 230)
+    let collectionInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 0.0)
+    
+    //MARK: - Life Cycle
     
     func prepare(movieCategoryProvider: MovieCategoryProvider) {
         self.movieCategoryProvider = movieCategoryProvider
@@ -41,17 +60,22 @@ class MovieListCell: UICollectionViewCell {
         movieCategoryProvider.requestMovies()
     }
     
-    func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+    override func prepareForReuse() {
+        movieCategoryProvider = nil
+        categoryLabel.text = nil
+        movieCollection.reloadData()
+    }
+    
+    //MARK: - Private Methods
+    
+    private func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
         let indexPathsForVisibleRows = movieCollection.indexPathsForVisibleItems
         let indexPathsIntersection = Set(indexPathsForVisibleRows).intersection(indexPaths)
         return Array(indexPathsIntersection)
     }
-    
-    override func prepareForReuse() {
-        movieCategoryProvider = nil
-        categoryLabel.text = nil
-    }
 }
+
+//MARK: - Collection View Delegates
 
 extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -60,7 +84,7 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as? MovieCell else {
+        guard let movieCell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as? MovieCell else {
             return UICollectionViewCell()
         }
         
@@ -87,6 +111,8 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     }
 }
 
+//MARK: - Collection View Prefetch Delegate
+
 extension MovieListCell: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
         guard let movieCategoryProvider = movieCategoryProvider else { return }
@@ -97,15 +123,19 @@ extension MovieListCell: UICollectionViewDataSourcePrefetching {
 }
 
 
+//MARK: - Collection View Layout Delegate
+
 extension MovieListCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 230)
+        cellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 0.0)
+        collectionInset
     }
 }
+
+//MARK: - Provider Delegate
 
 extension MovieListCell: MovieCategoryProviderDelegate {
     func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider) {

@@ -12,6 +12,20 @@ struct Configuration: Codable {
     static var shared: Configuration?
     
     let images: ImagesConfiguration
+    
+    var posterBaseUrl: String {
+        let baseUrl = images.baseUrl
+        let posterSize = images.posterSizes.first ?? String.empty
+        
+        return baseUrl+posterSize
+    }
+    
+    var backgroundImageBaseUrl: String {
+        let baseUrl = images.baseUrl
+        let backgroundImageSize = images.backdropsizes.first ?? String.empty
+        
+        return baseUrl+backgroundImageSize
+    }
 }
 
 struct ImagesConfiguration: Codable {

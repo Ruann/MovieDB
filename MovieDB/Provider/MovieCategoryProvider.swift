@@ -60,7 +60,9 @@ class MovieCategoryProvider {
         
         isFetchInProgress = true
         
-        MovieService.shared.requestMovies(from: movieCategory, page: currentPage) { result in
+        MovieService.shared.requestMovies(from: movieCategory, page: currentPage) { [weak self] result in
+            guard let `self` = self else { return }
+            
             switch result {
             case .success(let movieList):
                 self.isFetchInProgress = false
@@ -81,7 +83,9 @@ class MovieCategoryProvider {
         guard let searchTerm = searchTerm else { return }
         isFetchInProgress = true
         
-        MovieService.shared.requestMovies(searchCriteria: searchTerm, page: currentPage) { result in
+        MovieService.shared.requestMovies(searchCriteria: searchTerm, page: currentPage) { [weak self] result in
+            guard let `self` = self else { return }
+            
             switch result {
             case .success(let movieList):
                 self.isFetchInProgress = false

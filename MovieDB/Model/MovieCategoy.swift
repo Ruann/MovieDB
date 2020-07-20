@@ -26,7 +26,7 @@ enum MovieCategory: String,  CaseIterable {
             case .upcoming:
                 return "Upcoming"
             case .search:
-                return "Search"
+                return "Search Results"
         }
     }
     
