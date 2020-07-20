@@ -17,37 +17,59 @@ class MovieDBApi {
     var latestSearchTerm: String?
     
     func requestConfiguration(completion: @escaping (Result<Configuration, Error>) -> Void) {
-        let urlString = "https://api.themoviedb.org/3/configuration?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
-        requestData(url: urlString, completion: completion)
+        let parameters = [
+            URLQueryItem(name: MovieDBApiParametersKey.apiKey, value: MovieDBApiConfiguration.apiKey)
+        ]
+        
+        requestData(urlString: MovieDBApiConfiguration.configurationUrl, parameters: parameters, completion: completion)
     }
     
     func requestMovies(from category: MovieCategory, page: Int,completion: @escaping (Result<MovieList, Error>) -> Void) {
-        let urlString = "https://api.themoviedb.org/3/movie/\(category.rawValue)?page=\(page)&api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
-        requestData(url: urlString, completion: completion)
+        let parameters = [
+            URLQueryItem(name: MovieDBApiParametersKey.page, value: "\(page)"),
+            URLQueryItem(name: MovieDBApiParametersKey.apiKey, value: MovieDBApiConfiguration.apiKey)
+        ]
+        
+        let url = MovieDBApiConfiguration.categoryUrl(for: category)
+        requestData(urlString: url, parameters: parameters, completion: completion)
     }
     
     func requestMoviesDetails(movieId: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
-        let urlString = "https://api.themoviedb.org/3/movie/\(movieId)?api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
-        requestData(url: urlString, completion: completion)
+        let parameters = [
+            URLQueryItem(name: MovieDBApiParametersKey.apiKey, value: MovieDBApiConfiguration.apiKey)
+        ]
+        
+        let url = MovieDBApiConfiguration.movieDetailUrl(movieId: movieId)
+        requestData(urlString: url, parameters: parameters, completion: completion)
     }
     
     func requestMovies(searchCriteria: String, page: Int, completion: @escaping (Result<MovieList, Error>) -> Void) {
-        let urlString = "https://api.themoviedb.org/3/search/movie?query=\(searchCriteria)&page=\(page)&api_key=4fbdbdb7ab0a64a4ff94f65a19d7693a"
+        let parameters = [
+            URLQueryItem(name: MovieDBApiParametersKey.query, value: searchCriteria),
+            URLQueryItem(name: MovieDBApiParametersKey.page, value: "\(page)"),
+            URLQueryItem(name: MovieDBApiParametersKey.apiKey, value: MovieDBApiConfiguration.apiKey)
+        ]
         
+        let url = MovieDBApiConfiguration.categoryUrl(for: .search)
+
         if searchCriteria != latestSearchTerm {
             latestSearchRequest?.cancel()
             latestSearchTerm = searchCriteria
         }
-        
-        latestSearchRequest = requestData(url: urlString, completion: completion)
+
+        latestSearchRequest = requestData(urlString: url, parameters: parameters, completion: completion)
     }
     
     @discardableResult
-    private func requestData<T: Decodable>(url: String, completion: @escaping (Result<T, Error>) -> Void) -> URLSessionDataTask? {
+    private func requestData<T: Decodable>(urlString: String, parameters: [URLQueryItem], completion: @escaping (Result<T, Error>) -> Void) -> URLSessionDataTask? {
         
-        guard let url = URL(string: url) else {
+        var urlComponents = URLComponents(string: urlString)
+        urlComponents?.queryItems = parameters
+        
+        guard let url = urlComponents?.url else {
             return nil
         }
+        
         let session = URLSession.shared
         
         let request = URLRequest(url: url)

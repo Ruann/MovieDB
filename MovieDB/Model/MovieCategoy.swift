@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum MovieCategory: String,  CaseIterable {
-    case nowPlaying = "now_playing"
-    case popular = "popular"
-    case topRated = "top_rated"
-    case upcoming = "upcoming"
+enum MovieCategory:  CaseIterable {
+    case nowPlaying
+    case popular
+    case topRated
+    case upcoming
     case search
     
     var displayName: String {
