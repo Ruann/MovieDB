@@ -18,7 +18,7 @@ struct MovieTile: Codable {
     var fullPosterPath: String {
         guard let configuration = Configuration.shared,
             let posterPath = posterPath else {
-            return String.empty
+                return String.empty
         }
         
         return configuration.posterBaseUrl+posterPath

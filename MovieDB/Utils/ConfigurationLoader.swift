@@ -20,12 +20,12 @@ class ConfigurationLoader {
     func loadConfiguration() {
         MovieService.shared.requestConfiguration { result in
             switch result {
-            case .success(let configuration):
-                Configuration.shared = configuration
-                
-                NotificationCenter.default.post(name: .configurationLoaded, object: nil)
-            case .failure(let error):
-                print(error.localizedDescription)
+                case .success(let configuration):
+                    Configuration.shared = configuration
+                    
+                    NotificationCenter.default.post(name: .configurationLoaded, object: nil)
+                case .failure(let error):
+                    print(error.localizedDescription)
             }
         }
     }

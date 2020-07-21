@@ -20,7 +20,7 @@ class MovieListProvider {
     
     private var movieList: MovieList?
     private var searchTerm: String?
-
+    
     private var currentPage = 1
     private var total = 0
     private var isFetchInProgress = false
@@ -65,18 +65,18 @@ class MovieListProvider {
             guard let `self` = self else { return }
             
             switch result {
-            case .success(let movieList):
-                self.isFetchInProgress = false
-                self.currentPage += 1
-                self.total = movieList.total
-                
-                self.loadNewMovies(newMovieList: movieList)
-            case .failure(let error):
-                if self.currentPage == 1 {
-                    self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
-                }
-                self.isFetchInProgress = false
-                print(error.localizedDescription)
+                case .success(let movieList):
+                    self.isFetchInProgress = false
+                    self.currentPage += 1
+                    self.total = movieList.total
+                    
+                    self.loadNewMovies(newMovieList: movieList)
+                case .failure(let error):
+                    if self.currentPage == 1 {
+                        self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
+                    }
+                    self.isFetchInProgress = false
+                    print(error.localizedDescription)
             }
         }
     }
@@ -91,18 +91,18 @@ class MovieListProvider {
             guard let `self` = self else { return }
             
             switch result {
-            case .success(let movieList):
-                self.isFetchInProgress = false
-                self.currentPage += 1
-                self.total = movieList.total
-                
-                self.loadNewMovies(newMovieList: movieList)
-            case .failure(let error):
-                if self.currentPage == 1 {
-                    self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
-                }
-                self.isFetchInProgress = false
-                print(error.localizedDescription)
+                case .success(let movieList):
+                    self.isFetchInProgress = false
+                    self.currentPage += 1
+                    self.total = movieList.total
+                    
+                    self.loadNewMovies(newMovieList: movieList)
+                case .failure(let error):
+                    if self.currentPage == 1 {
+                        self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
+                    }
+                    self.isFetchInProgress = false
+                    print(error.localizedDescription)
             }
         }
     }

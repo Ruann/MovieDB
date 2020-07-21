@@ -9,7 +9,7 @@
 import UIKit
 
 extension CALayer {
-   func roundCorners(cornerMasks: CACornerMask, radius: CGFloat) {
+    func roundCorners(cornerMasks: CACornerMask, radius: CGFloat) {
         cornerRadius = radius
         masksToBounds = true
         maskedCorners = cornerMasks

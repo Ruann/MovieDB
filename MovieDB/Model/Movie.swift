@@ -23,7 +23,6 @@ struct Movie: Codable {
             let backgroundImagePath = backgroundImagePath else {
                 return String.empty
         }
-    
         
         return configuration.backgroundImageBaseUrl+backgroundImagePath
     }

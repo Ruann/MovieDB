@@ -58,12 +58,12 @@ class MovieDBApi {
         ]
         
         let url = MovieDBApiConfiguration.categoryUrl(for: .search)
-
+        
         if searchCriteria != latestSearchTerm {
             latestSearchRequest?.cancel()
             latestSearchTerm = searchCriteria
         }
-
+        
         latestSearchRequest = requestData(urlString: url, parameters: parameters, completion: completion)
     }
     
@@ -95,7 +95,6 @@ class MovieDBApi {
                 }
                 return
             }
-            
             
             do {
                 let decodeObject = try JSONDecoder().decode(T.self, from: data)

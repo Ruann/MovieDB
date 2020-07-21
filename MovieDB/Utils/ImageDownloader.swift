@@ -29,7 +29,7 @@ class ImageDownloader {
                 }
                 return
             }
-
+            
             DispatchQueue.main.async() {
                 guard let image = UIImage(data: data) else {
                     completion(.failure(ImageDownloaderError.corruptedData))

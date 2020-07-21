@@ -149,7 +149,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         movieListCell.delegate = self
-
+        
         return movieListCell
     }
 }
