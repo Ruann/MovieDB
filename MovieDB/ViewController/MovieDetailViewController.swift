@@ -51,6 +51,7 @@ class MovieDetailViewController: UIViewController {
         }
     }
     @IBOutlet weak var detailsLoadActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var movieDetailsView: UIView!
     
     //MARK: - Properties
     
@@ -127,15 +128,9 @@ class MovieDetailViewController: UIViewController {
     
     private func showDetailsViews() {
         backgroundImageFallView.isHidden = false
+        movieDetailsView.isHidden = false
         movieTitleLabel.isHidden = false
         starRatingView.isHidden = false
-        movieDetailLabel.isHidden = false
-        studioListLabel.isHidden = false
-        genreListLabel.isHidden = false
-        releaseDateLabel.isHidden = false
-        studiosLabel.isHidden = false
-        genreLabel.isHidden = false
-        releaseLabel.isHidden = false
     }
     
     private func loadBackgroundImage(urlString: String) {
