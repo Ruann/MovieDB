@@ -26,6 +26,8 @@
 "Studios" = "Studios";
 "Genre" = "Genre";
 "Release" = "Release";
+"MissingSummary" = "None summary provide";
+"NotInformed" = "Not Informed";
 
 //MARK: - Network
 
@@ -37,4 +39,5 @@
 "NoPosterAvailable" = "No Poster Available";
 
 //MARK: - Error
+
 "MovieRequestErrorMessage" = "Failed To load Movies";

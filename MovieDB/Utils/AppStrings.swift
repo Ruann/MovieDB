@@ -30,6 +30,8 @@ struct AppStrings {
         static let studios = NSLocalizedString("Studios", comment: "")
         static let genre = NSLocalizedString("Genre", comment: "")
         static let release = NSLocalizedString("Release", comment: "")
+        static let missingSummary = NSLocalizedString("MissingSummary", comment: "")
+        static let notInformed = NSLocalizedString("NotInformed", comment: "")
     }
     
     struct Network {

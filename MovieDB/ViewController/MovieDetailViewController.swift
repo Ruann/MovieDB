@@ -108,10 +108,10 @@ class MovieDetailViewController: UIViewController {
     
     private func loadDetails(movie: Movie) {
         movieTitleLabel.text = movie.title
-        movieDetailLabel.text = movie.overview.text(defaultIfEmpty: "None summary provide")
-        studioListLabel.text = movie.studioList.text(defaultIfEmpty: "Not Informed")
-        genreListLabel.text = movie.genreList.text(defaultIfEmpty: "Not Informed")
-        releaseDateLabel.text = movie.yearReleased?.text(defaultIfEmpty: "Not Informed")
+        movieDetailLabel.text = movie.overview.text(defaultIfEmpty: AppStrings.MovieDetail.missingSummary)
+        studioListLabel.text = movie.studioList.text(defaultIfEmpty: AppStrings.MovieDetail.notInformed)
+        genreListLabel.text = movie.genreList.text(defaultIfEmpty: AppStrings.MovieDetail.notInformed)
+        releaseDateLabel.text = movie.yearReleased?.text(defaultIfEmpty: AppStrings.MovieDetail.notInformed)
         
         loadBackgroundImage(urlString: movie.backgroundImageFullPath)
         starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)
