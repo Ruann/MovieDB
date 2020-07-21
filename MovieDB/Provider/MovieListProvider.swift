@@ -10,7 +10,7 @@ import Foundation
 
 protocol MovieListProviderDelegate {
     func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieListProvider)
-    func onRequestFailed(_ movieCategoryProvider: MovieListProvider)
+    func onRequestFailed(with error: Error, movieCategoryProvider: MovieListProvider)
 }
 
 class MovieListProvider {
@@ -73,7 +73,7 @@ class MovieListProvider {
                 self.loadNewMovies(newMovieList: movieList)
             case .failure(let error):
                 if self.currentPage == 1 {
-                    self.delegate?.onRequestFailed(self)
+                    self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
                 }
                 self.isFetchInProgress = false
                 print(error.localizedDescription)
@@ -99,7 +99,7 @@ class MovieListProvider {
                 self.loadNewMovies(newMovieList: movieList)
             case .failure(let error):
                 if self.currentPage == 1 {
-                    self.delegate?.onRequestFailed(self)
+                    self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
                 }
                 self.isFetchInProgress = false
                 print(error.localizedDescription)

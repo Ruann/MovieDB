@@ -153,7 +153,7 @@ extension MovieListCell: MovieListProviderDelegate {
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             
             if movieCategoryProvider.movieCategory == .search && movieCategoryProvider.totalMoviesLoaded == 0 {
-                statusLabel.text = "No results Found"
+                statusLabel.text = AppStrings.MovieCategory.noResults
                 statusLabel.isHidden = false
             } else {
                 statusLabel.isHidden = true
@@ -169,7 +169,12 @@ extension MovieListCell: MovieListProviderDelegate {
         movieCollection.reloadItems(at: indexPathsToReload)
     }
     
-    func onRequestFailed(_ movieCategoryProvider: MovieListProvider) {
+    func onRequestFailed(with error: Error, movieCategoryProvider: MovieListProvider) {
+        if let networkError = error as? NetworkError,
+            networkError == NetworkError.searchEmptyString {
+            statusLabel.text = AppStrings.MovieCategory.noResults
+        }
+        
         collectionActivityIndicator.stopAnimating()
         statusLabel.isHidden = false
     }

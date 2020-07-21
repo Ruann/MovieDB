@@ -7,6 +7,7 @@
 */
 
 //MARK: - Global
+
 "Ok" = "OK";
 
 //MARK: - Movie Category
@@ -16,6 +17,7 @@
 "TopRated" = "Top Rated";
 "Upcoming" = "Upcoming";
 "SearchResults" = "Search Results";
+"NoResults" = "No Results Found";
 
 //MARK: - Home
 
@@ -40,4 +42,4 @@
 
 //MARK: - Error
 
-"MovieRequestErrorMessage" = "Failed To load Movies";
+"MovieRequestErrorMessage" = "Failed To Load Movies";

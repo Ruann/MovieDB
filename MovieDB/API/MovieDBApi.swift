@@ -10,6 +10,7 @@ import Foundation
 
 enum NetworkError: Error {
     case missingData
+    case searchEmptyString
 }
 
 class MovieDBApi {
@@ -44,6 +45,12 @@ class MovieDBApi {
     }
     
     func requestMovies(searchCriteria: String, page: Int, completion: @escaping (Result<MovieList, Error>) -> Void) {
+        
+        guard !searchCriteria.isEmpty else  {
+            completion(Result.failure(NetworkError.searchEmptyString))
+            return
+        }
+        
         let parameters = [
             URLQueryItem(name: MovieDBApiParametersKey.query, value: searchCriteria),
             URLQueryItem(name: MovieDBApiParametersKey.page, value: "\(page)"),

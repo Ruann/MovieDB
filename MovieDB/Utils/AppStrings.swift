@@ -20,6 +20,7 @@ struct AppStrings {
         static let topRated = NSLocalizedString("TopRated", comment: "")
         static let upcoming = NSLocalizedString("Upcoming", comment: "")
         static let searchResults = NSLocalizedString("SearchResults", comment: "")
+        static let noResults = NSLocalizedString("NoResults", comment: "")
     }
     
     struct Home {
