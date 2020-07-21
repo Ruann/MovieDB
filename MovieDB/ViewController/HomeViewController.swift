@@ -141,10 +141,10 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         
         if let searchTerm = searchText {
-            let movieProvider = MovieCategoryProvider(searchText: searchTerm)
+            let movieProvider = MovieListProvider(searchText: searchTerm)
             movieListCell.prepare(movieCategoryProvider: movieProvider)
         } else {
-            let movieProvider = MovieCategoryProvider(movieCategory: movieCategories[indexPath.row])
+            let movieProvider = MovieListProvider(movieCategory: movieCategories[indexPath.row])
             movieListCell.prepare(movieCategoryProvider: movieProvider)
         }
         

@@ -48,7 +48,7 @@ class MovieListCell: UICollectionViewCell {
     
     var delegate: MovieListCellDelegate?
     
-    private var movieCategoryProvider: MovieCategoryProvider?
+    private var movieCategoryProvider: MovieListProvider?
     
     //MARK: - Constante
     let cellLineSpacing: CGFloat = 20.0
@@ -57,7 +57,7 @@ class MovieListCell: UICollectionViewCell {
     
     //MARK: - Life Cycle
     
-    func prepare(movieCategoryProvider: MovieCategoryProvider) {
+    func prepare(movieCategoryProvider: MovieListProvider) {
         self.movieCategoryProvider = movieCategoryProvider
         movieCategoryProvider.delegate = self
         
@@ -147,8 +147,8 @@ extension MovieListCell: UICollectionViewDelegateFlowLayout {
 
 //MARK: - Provider Delegate
 
-extension MovieListCell: MovieCategoryProviderDelegate {
-    func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider) {
+extension MovieListCell: MovieListProviderDelegate {
+    func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieListProvider) {
         
         guard let newIndexPathsToReload = newIndexPathsToReload else {
             
@@ -169,7 +169,7 @@ extension MovieListCell: MovieCategoryProviderDelegate {
         movieCollection.reloadItems(at: indexPathsToReload)
     }
     
-    func onRequestFailed(_ movieCategoryProvider: MovieCategoryProvider) {
+    func onRequestFailed(_ movieCategoryProvider: MovieListProvider) {
         collectionActivityIndicator.stopAnimating()
         statusLabel.isHidden = false
     }

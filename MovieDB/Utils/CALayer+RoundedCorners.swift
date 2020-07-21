@@ -1,5 +1,5 @@
 //
-//  UIView+RoundedCorners.swift
+//  CALayer+RoundedCorners.swift
 //  MovieDB
 //
 //  Created by Ruann Homem on 19/07/20.

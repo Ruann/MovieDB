@@ -21,6 +21,8 @@ struct MovieList: Codable {
     
     func merge(newMovieList: MovieList) -> MovieList {
         let newMoviesArray = moviesTile + newMovieList.moviesTile
-        return MovieList(page: 0, total: 0, moviesTile: newMoviesArray)
+        let newPage = max(page, newMovieList.page)
+        let newTotal = max(total, newMovieList.total)
+        return MovieList(page: newPage, total: newTotal, moviesTile: newMoviesArray)
     }
 }

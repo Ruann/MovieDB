@@ -1,5 +1,5 @@
 //
-//  MovieCategoryProvider.swift
+//  MovieListProvider.swift
 //  MovieDB
 //
 //  Created by Ruann Homem on 18/07/20.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-protocol MovieCategoryProviderDelegate {
-    func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider)
-    func onRequestFailed(_ movieCategoryProvider: MovieCategoryProvider)
+protocol MovieListProviderDelegate {
+    func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieListProvider)
+    func onRequestFailed(_ movieCategoryProvider: MovieListProvider)
 }
 
-class MovieCategoryProvider {
+class MovieListProvider {
     
-    var delegate: MovieCategoryProviderDelegate?
+    var delegate: MovieListProviderDelegate?
     var movieCategory: MovieCategory
     
     private var movieList: MovieList?
