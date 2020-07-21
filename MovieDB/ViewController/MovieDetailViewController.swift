@@ -14,6 +14,15 @@ class MovieDetailViewController: UIViewController {
     
     //MARK: - Outlets
     
+    @IBOutlet weak var backgroundImageFallView: UIView! {
+        didSet {
+            backgroundImageFallView.layer.roundCorners(cornerMasks: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: backgroundImageRadius)
+        }
+    }
+    
+    @IBOutlet weak var noImageLabel: UILabel!
+    @IBOutlet weak var backgroundImageActivityIndicator: UIActivityIndicatorView!
+    
     @IBOutlet weak var movieBackgroundImageView: UIImageView! {
         didSet {
             movieBackgroundImageView.layer.roundCorners(cornerMasks: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: backgroundImageRadius)
@@ -41,6 +50,7 @@ class MovieDetailViewController: UIViewController {
             releaseLabel.text = AppStrings.MovieDetail.release
         }
     }
+    @IBOutlet weak var detailsLoadActivityIndicator: UIActivityIndicatorView!
     
     //MARK: - Properties
     
@@ -57,6 +67,7 @@ class MovieDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(onLostInternetConnection), name: .lostInternetConnection, object: nil)
         requestMovieDetails()
     }
     
@@ -76,12 +87,20 @@ class MovieDetailViewController: UIViewController {
     
     private func requestMovieDetails() {
         guard let movieTile = movieTile else { return }
+        
         MovieService.shared.requestMoviesDetails(movieId: movieTile.movieId) { [weak self] result in
+            guard let `self` = self else { return }
+            
+            self.detailsLoadActivityIndicator.stopAnimating()
             switch result {
-            case .success(let movie):
-                self?.loadDetails(movie: movie)
-            case .failure(let error):
-                print(error.localizedDescription)
+                case .success(let movie):
+                    self.loadDetails(movie: movie)
+                    self.showDetailsViews()
+                case .failure(let error):
+                    self.showDefaultValues()
+                    self.backgroundImageActivityIndicator.stopAnimating()
+                    self.noImageLabel.isHidden = false
+                    print(error.localizedDescription)
             }
         }
     }
@@ -89,23 +108,61 @@ class MovieDetailViewController: UIViewController {
     private func loadDetails(movie: Movie) {
         movieTitleLabel.text = movie.title
         movieDetailLabel.text = movie.overview.text(defaultIfEmpty: "None summary provide")
-        studioListLabel.text = movie.studioList.text(defaultIfEmpty:"Not Informed")
-        genreListLabel.text = movie.genreList.text(defaultIfEmpty:"Not Informed")
+        studioListLabel.text = movie.studioList.text(defaultIfEmpty: "Not Informed")
+        genreListLabel.text = movie.genreList.text(defaultIfEmpty: "Not Informed")
         releaseDateLabel.text = movie.yearReleased?.text(defaultIfEmpty: "Not Informed")
         
         loadBackgroundImage(urlString: movie.backgroundImageFullPath)
         starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)
     }
     
+    private func showDefaultValues() {
+        movieTitleLabel.text = movieTile?.title
+        starRatingView.setupStars(voteAverage: movieTile?.voteAverage ?? 0)
+        
+        movieTitleLabel.isHidden = false
+        starRatingView.isHidden = false
+        backgroundImageFallView.isHidden = false
+    }
+    
+    private func showDetailsViews() {
+        backgroundImageFallView.isHidden = false
+        movieTitleLabel.isHidden = false
+        starRatingView.isHidden = false
+        movieDetailLabel.isHidden = false
+        studioListLabel.isHidden = false
+        genreListLabel.isHidden = false
+        releaseDateLabel.isHidden = false
+        studiosLabel.isHidden = false
+        genreLabel.isHidden = false
+        releaseLabel.isHidden = false
+    }
+    
     private func loadBackgroundImage(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
+        guard let url = URL(string: urlString) else {
+            self.backgroundImageActivityIndicator.stopAnimating()
+            self.noImageLabel.isHidden = false
+            return
+        }
+        
         ImageDownloader.shared.getImage(url: url) { [weak self] result in
+            guard let `self` = self else { return }
+            
+            self.backgroundImageActivityIndicator.stopAnimating()
+            
             switch result {
-            case .success(let image):
-                self?.movieBackgroundImageView.image = image
-            case .failure(let error):
-                print(error.localizedDescription)
+                case .success(let image):
+                    self.movieBackgroundImageView.image = image
+                case .failure(let error):
+                    self.noImageLabel.isHidden = false
+                    print(error.localizedDescription)
             }
+        }
+    }
+    
+    @objc private func onLostInternetConnection(_ notification:Notification) {
+        DispatchQueue.main.async() { [weak self] in
+            self?.showNoNetworkAlert()
         }
     }
 }

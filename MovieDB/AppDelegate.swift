@@ -7,11 +7,32 @@
 //
 
 import UIKit
+import Network
+
+extension Notification.Name {
+    static let lostInternetConnection = Notification.Name("lostInternetConnection")
+}
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    private var monitor: NWPathMonitor?
+    private let networkMonitorQueueName = "NetworkMonitor"
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         ConfigurationLoader.shared.loadConfiguration()
         return true
+    }
+    
+    func startNetworkMonitor() {
+        monitor = NWPathMonitor()
+        monitor?.pathUpdateHandler = { [weak self] path in
+            if path.status != .satisfied {
+                NotificationCenter.default.post(name: .lostInternetConnection, object: nil)
+                self?.monitor?.cancel()
+            }
+        }
+        
+        let queue = DispatchQueue(label: networkMonitorQueueName)
+        monitor?.start(queue: queue)
     }
 }

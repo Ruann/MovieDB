@@ -5,12 +5,36 @@
   Created by Ruann Homem on 20/07/20.
   Copyright © 2020 Ruann Homem. All rights reserved.
 */
+
+//MARK: - Global
+"Ok" = "OK";
+
+//MARK: - Movie Category
+
 "NowPlaying" = "Now Playing";
 "Popular" = "Popular";
 "TopRated" = "Top Rated";
 "Upcoming" = "Upcoming";
 "SearchResults" = "Search Results";
+
+//MARK: - Home
+
 "SearchHeader" = "Hello, what do you want to watch ?";
+
+//MARK: - MovieDetail
+
 "Studios" = "Studios";
 "Genre" = "Genre";
 "Release" = "Release";
+
+//MARK: - Network
+
+"NetworkAlertTitle" = "No Network Connection";
+"NetworkAlertMessage" = "It appears you don't have a internet connection";
+
+//MARK: - MovieCell
+
+"NoPosterAvailable" = "No Poster Available";
+
+//MARK: - Error
+"MovieRequestErrorMessage" = "Failed To load Movies";

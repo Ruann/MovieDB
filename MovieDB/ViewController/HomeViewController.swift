@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Network
 
 //MARK: - HomeViewController
 
@@ -19,6 +20,7 @@ class HomeViewController: UIViewController {
             searchHeaderLabel.text = AppStrings.Home.searchHeader
         }
     }
+    
     @IBOutlet weak var headerSearchLabel: UILabel! {
         didSet {
             headerSearchLabel.addLineSpacing(headerSearchLabelLineSpacing)
@@ -38,12 +40,15 @@ class HomeViewController: UIViewController {
             movieCollection.register(MovieListCell.nib, forCellWithReuseIdentifier: MovieListCell.identifier)
         }
     }
+    
     @IBOutlet weak var movieListsActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var backToCategoriesButton: UIButton!
+    @IBOutlet weak var failedToLoadMoviesLabel: UILabel!
     
     //MARK: - Properties
     
     private var movieCategories: [MovieCategory] = MovieCategory.allCategories
+    private var monitor: NWPathMonitor?
     
     private var searchText: String? {
         didSet {
@@ -76,6 +81,10 @@ class HomeViewController: UIViewController {
         } else {
             movieListsActivityIndicator.stopAnimating()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onLostInternetConnection), name: .lostInternetConnection, object: nil)
+        
+        startNetworkMonitor()
     }
     
     //MARK: - Private methods
@@ -84,6 +93,25 @@ class HomeViewController: UIViewController {
         movieCollection.reloadData()
         searchBar.isUserInteractionEnabled = true
         movieListsActivityIndicator.stopAnimating()
+    }
+    
+    @objc private func onLostInternetConnection(_ notification:Notification) {
+        DispatchQueue.main.async() { [weak self] in
+            self?.showNoNetworkAlert()
+            self?.showErrorLabelIfNecessary()
+        }
+    }
+    
+    private func showErrorLabelIfNecessary() {
+        guard !isConfigurationLoaded else { return }
+        
+        failedToLoadMoviesLabel.isHidden = false
+        movieListsActivityIndicator.stopAnimating()
+    }
+    
+    private func startNetworkMonitor() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        appDelegate.startNetworkMonitor()
     }
     
     //MARK: - Actions

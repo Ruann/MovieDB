@@ -26,7 +26,11 @@ class MovieCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var noPosterLabel: UILabel!
+    @IBOutlet weak var status: UILabel! {
+        didSet {
+            status.text = AppStrings.MovieCell.noPosterAvailable
+        }
+    }
     @IBOutlet weak var posterActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private weak var titleLabel: UILabel!
@@ -51,13 +55,22 @@ class MovieCell: UICollectionViewCell {
         loadPosterImage(posterUrlString: posterUrl)
     }
     
+    func prepareWithDefaultValues() {
+        starRatingView.isHidden = true
+        posterActivityIndicator.stopAnimating()
+        status.text = AppStrings.Error.movieRequestErrorMessage
+        status.isHidden = false
+    }
+    
     override func prepareForReuse() {
         imageDownloadTask?.cancel()
         posterImage.image = nil
         titleLabel.text = nil
-        noPosterLabel.isHidden = true
+        status.isHidden = true
         posterActivityIndicator.isHidden = false
+        starRatingView.isHidden = false
         starRatingView.reset()
+        status.text = AppStrings.MovieCell.noPosterAvailable
     }
     
     //MARK: - Private Methods
@@ -65,7 +78,7 @@ class MovieCell: UICollectionViewCell {
     private func loadPosterImage(posterUrlString: String) {
         guard let posterUrl = URL(string: posterUrlString) else {
             posterActivityIndicator.stopAnimating()
-            noPosterLabel.isHidden = false
+            status.isHidden = false
             return
         }
         
@@ -77,7 +90,7 @@ class MovieCell: UICollectionViewCell {
             case .success(let image):
                 self?.posterImage.image = image
             case .failure(let error):
-                self?.noPosterLabel.isHidden = false
+                self?.status.isHidden = false
                 print(error.localizedDescription)
             }
         }

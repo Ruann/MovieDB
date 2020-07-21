@@ -34,6 +34,12 @@ class MovieListCell: UICollectionViewCell {
             movieCollection.collectionViewLayout = layout
         }
     }
+    @IBOutlet weak var statusLabel: UILabel! {
+        didSet {
+            statusLabel.text = AppStrings.Error.movieRequestErrorMessage
+        }
+    }
+    @IBOutlet weak var collectionActivityIndicator: UIActivityIndicatorView!
     
     //MARK: - Properties
     
@@ -64,6 +70,9 @@ class MovieListCell: UICollectionViewCell {
         movieCategoryProvider = nil
         categoryLabel.text = nil
         movieCollection.reloadData()
+        statusLabel.text = AppStrings.Error.movieRequestErrorMessage
+        statusLabel.isHidden = true
+        collectionActivityIndicator.isHidden = false
     }
     
     //MARK: - Private Methods
@@ -94,6 +103,7 @@ extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
         
         guard !movieCategoryProvider.isLoadingMovieCell(for: indexPath),
             let movieTile = movieCategoryProvider.movieTile(for: indexPath) else {
+                movieCell.prepareWithDefaultValues()
                 return movieCell
         }
         
@@ -139,13 +149,28 @@ extension MovieListCell: UICollectionViewDelegateFlowLayout {
 
 extension MovieListCell: MovieCategoryProviderDelegate {
     func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider) {
+        
         guard let newIndexPathsToReload = newIndexPathsToReload else {
+            
+            if movieCategoryProvider.movieCategory == .search && movieCategoryProvider.totalMoviesLoaded == 0 {
+                statusLabel.text = "No results Found"
+                statusLabel.isHidden = false
+            } else {
+                statusLabel.isHidden = true
+            }
+            
+            collectionActivityIndicator.stopAnimating()
             movieCollection.reloadData()
             return
         }
-      
+        
         let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
         
         movieCollection.reloadItems(at: indexPathsToReload)
+    }
+    
+    func onRequestFailed(_ movieCategoryProvider: MovieCategoryProvider) {
+        collectionActivityIndicator.stopAnimating()
+        statusLabel.isHidden = false
     }
 }

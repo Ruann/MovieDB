@@ -37,20 +37,36 @@
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Failed to load movies" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewn-J8-Ofx">
+                        <rect key="frame" x="293" y="95" width="153" height="20.5"/>
+                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="15"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="v3h-4r-6Hj">
+                        <rect key="frame" x="359.5" y="95" width="20" height="20"/>
+                        <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </activityIndicatorView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="G1l-Wo-kOS" secondAttribute="bottom" id="2FH-dR-nsh"/>
                     <constraint firstItem="uGn-0n-Qog" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" constant="20" id="2Nl-Gw-Oia"/>
+                    <constraint firstItem="ewn-J8-Ofx" firstAttribute="centerY" secondItem="0vY-cs-uSI" secondAttribute="centerY" id="3oQ-eL-93B"/>
+                    <constraint firstItem="v3h-4r-6Hj" firstAttribute="centerY" secondItem="0vY-cs-uSI" secondAttribute="centerY" id="89S-TM-CYJ"/>
                     <constraint firstItem="uGn-0n-Qog" firstAttribute="top" secondItem="0vY-cs-uSI" secondAttribute="top" id="BDc-lF-LV3"/>
                     <constraint firstItem="G1l-Wo-kOS" firstAttribute="leading" secondItem="0vY-cs-uSI" secondAttribute="leading" id="RSn-Yw-vZd"/>
+                    <constraint firstItem="ewn-J8-Ofx" firstAttribute="centerX" secondItem="0vY-cs-uSI" secondAttribute="centerX" id="X0T-kZ-Xcz"/>
                     <constraint firstItem="G1l-Wo-kOS" firstAttribute="top" secondItem="uGn-0n-Qog" secondAttribute="bottom" constant="23" id="c9Y-zx-nqi"/>
                     <constraint firstAttribute="trailing" secondItem="G1l-Wo-kOS" secondAttribute="trailing" id="jhx-CY-EY2"/>
+                    <constraint firstItem="v3h-4r-6Hj" firstAttribute="centerX" secondItem="0vY-cs-uSI" secondAttribute="centerX" id="t6N-yg-b2Z"/>
                 </constraints>
             </collectionViewCellContentView>
             <size key="customSize" width="739" height="210"/>
             <connections>
                 <outlet property="categoryLabel" destination="uGn-0n-Qog" id="UVY-re-ygI"/>
+                <outlet property="collectionActivityIndicator" destination="v3h-4r-6Hj" id="ZWG-zW-GK7"/>
                 <outlet property="movieCollection" destination="G1l-Wo-kOS" id="bs0-yP-0kO"/>
+                <outlet property="statusLabel" destination="ewn-J8-Ofx" id="tws-gb-qLk"/>
             </connections>
             <point key="canvasLocation" x="231.15942028985509" y="123.21428571428571"/>
         </collectionViewCell>

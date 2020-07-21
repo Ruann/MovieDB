@@ -10,14 +10,15 @@ import Foundation
 
 protocol MovieCategoryProviderDelegate {
     func onRequestCompleted(with newIndexPathsToReload: [IndexPath]?, movieCategoryProvider: MovieCategoryProvider)
+    func onRequestFailed(_ movieCategoryProvider: MovieCategoryProvider)
 }
 
 class MovieCategoryProvider {
     
     var delegate: MovieCategoryProviderDelegate?
+    var movieCategory: MovieCategory
     
     private var movieList: MovieList?
-    private var movieCategory: MovieCategory
     private var searchTerm: String?
 
     private var currentPage = 1
@@ -71,6 +72,9 @@ class MovieCategoryProvider {
                 
                 self.loadNewMovies(newMovieList: movieList)
             case .failure(let error):
+                if self.currentPage == 1 {
+                    self.delegate?.onRequestFailed(self)
+                }
                 self.isFetchInProgress = false
                 print(error.localizedDescription)
             }
@@ -94,6 +98,9 @@ class MovieCategoryProvider {
                 
                 self.loadNewMovies(newMovieList: movieList)
             case .failure(let error):
+                if self.currentPage == 1 {
+                    self.delegate?.onRequestFailed(self)
+                }
                 self.isFetchInProgress = false
                 print(error.localizedDescription)
             }
@@ -101,7 +108,8 @@ class MovieCategoryProvider {
     }
     
     func movieTile(for indexPath: IndexPath) -> MovieTile? {
-        movieList?.moviesTile[indexPath.row]
+        guard indexPath.row < movieList?.moviesTile.count ?? 0 else { return nil }
+        return movieList?.moviesTile[indexPath.row]
     }
     
     func isLoadingMovieCell(for indexPath: IndexPath) -> Bool {

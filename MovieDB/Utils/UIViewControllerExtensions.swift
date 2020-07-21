@@ -14,4 +14,13 @@ extension UIViewController {
 
         return storyboard.instantiateViewController(withIdentifier: viewControllerIdentifier)
     }
+    
+    func showNoNetworkAlert() {
+        let alertcontroller = UIAlertController(title: AppStrings.Network.alertTitle, message: AppStrings.Network.alertMessage, preferredStyle: .alert)
+        alertcontroller.addAction(UIAlertAction(title: AppStrings.Global.ok, style: .default, handler: { [weak  self] _ in
+            self?.dismiss(animated: true)
+        }))
+        
+        present(alertcontroller, animated: true)
+    }
 }
