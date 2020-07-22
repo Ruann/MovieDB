@@ -10,58 +10,60 @@ import UIKit
 
 //MARK: - MovieDetailViewController
 
-class MovieDetailViewController: UIViewController {
+final class MovieDetailViewController: UIViewController {
     
     //MARK: - Outlets
     
-    @IBOutlet weak var backgroundImageFallView: UIView! {
+    @IBOutlet private weak var backgroundImageFallView: UIView! {
         didSet {
             backgroundImageFallView.layer.roundCorners(cornerMasks: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: backgroundImageRadius)
         }
     }
     
-    @IBOutlet weak var noImageLabel: UILabel!
-    @IBOutlet weak var backgroundImageActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var noImageLabel: UILabel!
+    @IBOutlet private weak var backgroundImageActivityIndicator: UIActivityIndicatorView!
     
-    @IBOutlet weak var movieBackgroundImageView: UIImageView! {
+    @IBOutlet private weak var movieBackgroundImageView: UIImageView! {
         didSet {
             movieBackgroundImageView.layer.roundCorners(cornerMasks: [.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: backgroundImageRadius)
         }
     }
-    @IBOutlet weak var movieTitleLabel: UILabel!
-    @IBOutlet weak var movieDetailLabel: UILabel!
-    @IBOutlet weak var studioListLabel: UILabel!
-    @IBOutlet weak var genreListLabel: UILabel!
-    @IBOutlet weak var releaseDateLabel: UILabel!
-    @IBOutlet weak var starRatingView: StarRatingView!
+    @IBOutlet private weak var movieTitleLabel: UILabel!
+    @IBOutlet private weak var movieDetailLabel: UILabel!
+    @IBOutlet private weak var studioListLabel: UILabel!
+    @IBOutlet private weak var genreListLabel: UILabel!
+    @IBOutlet private weak var releaseDateLabel: UILabel!
+    @IBOutlet private weak var starRatingView: StarRatingView!
     
-    @IBOutlet weak var studiosLabel: UILabel! {
+    @IBOutlet private weak var studiosLabel: UILabel! {
         didSet {
             studiosLabel.text = AppStrings.MovieDetail.studios
         }
     }
-    @IBOutlet weak var genreLabel: UILabel! {
+    @IBOutlet private weak var genreLabel: UILabel! {
         didSet {
             genreLabel.text = AppStrings.MovieDetail.genre
         }
     }
-    @IBOutlet weak var releaseLabel: UILabel! {
+    
+    @IBOutlet private weak var releaseLabel: UILabel! {
         didSet {
             releaseLabel.text = AppStrings.MovieDetail.release
         }
     }
-    @IBOutlet weak var detailsLoadActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var movieDetailsView: UIView!
+    
+    @IBOutlet private weak var detailsLoadActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var movieDetailsView: UIView!
     
     //MARK: - Properties
     
-    static var identifier = "MovieDetailViewController"
+    static let identifier = "MovieDetailViewController"
     
     private var movieTile: MovieTile?
     
     //MARK: - Constants
     
-    let backgroundImageRadius: CGFloat = 15.0
+    private let backgroundImageRadius: CGFloat = 15.0
     
     //MARK: - Life Cycle
     
@@ -74,8 +76,8 @@ class MovieDetailViewController: UIViewController {
     
     //MARK: - Public methods
     
-    func load(_ movie: MovieTile) {
-        self.movieTile = movie
+    func load(_ movieTile: MovieTile) {
+        self.movieTile = movieTile
     }
     
     //MARK: - Action
@@ -97,11 +99,10 @@ class MovieDetailViewController: UIViewController {
                 case .success(let movie):
                     self.loadDetails(movie: movie)
                     self.showDetailsViews()
-                case .failure(let error):
+                case .failure(_):
                     self.showDefaultValues()
                     self.backgroundImageActivityIndicator.stopAnimating()
                     self.noImageLabel.isHidden = false
-                    print(error.localizedDescription)
             }
         }
     }
@@ -114,12 +115,12 @@ class MovieDetailViewController: UIViewController {
         releaseDateLabel.text = movie.yearReleased?.text(defaultIfEmpty: AppStrings.MovieDetail.notInformed)
         
         loadBackgroundImage(urlString: movie.backgroundImageFullPath)
-        starRatingView.setupStars(voteAverage: movie.voteAverage ?? 0)
+        starRatingView.setup(voteAverage: movie.voteAverage ?? 0)
     }
     
     private func showDefaultValues() {
         movieTitleLabel.text = movieTile?.title
-        starRatingView.setupStars(voteAverage: movieTile?.voteAverage ?? 0)
+        starRatingView.setup(voteAverage: movieTile?.voteAverage ?? 0)
         
         movieTitleLabel.isHidden = false
         starRatingView.isHidden = false
@@ -135,12 +136,12 @@ class MovieDetailViewController: UIViewController {
     
     private func loadBackgroundImage(urlString: String) {
         guard let url = URL(string: urlString) else {
-            self.backgroundImageActivityIndicator.stopAnimating()
-            self.noImageLabel.isHidden = false
+            backgroundImageActivityIndicator.stopAnimating()
+            noImageLabel.isHidden = false
             return
         }
         
-        ImageDownloader.shared.getImage(url: url) { [weak self] result in
+        ImageDownloader.shared.requestImage(url: url) { [weak self] result in
             guard let `self` = self else { return }
             
             self.backgroundImageActivityIndicator.stopAnimating()
@@ -148,9 +149,8 @@ class MovieDetailViewController: UIViewController {
             switch result {
                 case .success(let image):
                     self.movieBackgroundImageView.image = image
-                case .failure(let error):
+                case .failure(_):
                     self.noImageLabel.isHidden = false
-                    print(error.localizedDescription)
             }
         }
     }

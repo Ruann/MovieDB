@@ -12,7 +12,7 @@ extension Notification.Name {
     static let configurationLoaded = Notification.Name("configurationLoaded")
 }
 
-class ConfigurationLoader {
+final class ConfigurationLoader {
     static let shared = ConfigurationLoader()
     
     private init() {}
@@ -24,8 +24,8 @@ class ConfigurationLoader {
                     Configuration.shared = configuration
                     
                     NotificationCenter.default.post(name: .configurationLoaded, object: nil)
-                case .failure(let error):
-                    print(error.localizedDescription)
+                case .failure(_):
+                    break
             }
         }
     }

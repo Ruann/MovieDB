@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Api Key</key>
+	<string>4fbdbdb7ab0a64a4ff94f65a19d7693a</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-SemiBold.ttf</string>

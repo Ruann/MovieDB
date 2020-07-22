@@ -17,11 +17,19 @@ struct MovieDBApiParametersKey {
 struct MovieDBApiConfiguration {
     private static let baseUrl = "https://api.themoviedb.org/3"
     
-    static let apiKey = "4fbdbdb7ab0a64a4ff94f65a19d7693a"
-    
     static let configurationUrl = "\(baseUrl)/configuration"
     
-    static func categoryUrl(for category: MovieCategory) -> String {
+    static var apiKey: String {
+        guard let filePath = Bundle.main.path(forResource: "Info", ofType: "plist"),
+              let plist = NSDictionary(contentsOfFile: filePath),
+              let apiKey = plist.object(forKey: "Api Key") as? String else {
+                  return String.empty
+          }
+
+        return apiKey
+    }
+    
+    static func categoryUrl(for category: MovieListCategory) -> String {
         switch category {
             case .nowPlaying:
                 return "\(baseUrl)/movie/now_playing"
@@ -37,6 +45,6 @@ struct MovieDBApiConfiguration {
     }
     
     static func movieDetailUrl(movieId: Int) -> String {
-        "https://api.themoviedb.org/3/movie/\(movieId)"
+        "\(baseUrl)/movie/\(movieId)"
     }
 }

@@ -15,19 +15,19 @@ struct MovieTile: Codable {
     let posterPath: String?
     let voteAverage: Double?
     
+    private enum CodingKeys: String, CodingKey {
+        case movieId = "id"
+        case title
+        case posterPath = "poster_path"
+        case voteAverage = "vote_average"
+    }
+    
     var fullPosterPath: String {
         guard let configuration = Configuration.shared,
             let posterPath = posterPath else {
                 return String.empty
         }
         
-        return configuration.posterBaseUrl+posterPath
-    }
-    
-    private enum CodingKeys : String, CodingKey {
-        case movieId = "id"
-        case title
-        case posterPath = "poster_path"
-        case voteAverage = "vote_average"
+        return configuration.posterBaseUrl + posterPath
     }
 }

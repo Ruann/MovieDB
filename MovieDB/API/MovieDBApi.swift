@@ -13,7 +13,7 @@ enum NetworkError: Error {
     case searchEmptyString
 }
 
-class MovieDBApi {
+final class MovieDBApi {
     var latestSearchRequest: URLSessionDataTask?
     var latestSearchTerm: String?
     
@@ -25,7 +25,7 @@ class MovieDBApi {
         requestData(urlString: MovieDBApiConfiguration.configurationUrl, parameters: parameters, completion: completion)
     }
     
-    func requestMovies(from category: MovieCategory, page: Int,completion: @escaping (Result<MovieList, Error>) -> Void) {
+    func requestMovies(from category: MovieListCategory, page: Int,completion: @escaping (Result<MovieList, Error>) -> Void) {
         let parameters = [
             URLQueryItem(name: MovieDBApiParametersKey.page, value: "\(page)"),
             URLQueryItem(name: MovieDBApiParametersKey.apiKey, value: MovieDBApiConfiguration.apiKey)
@@ -83,8 +83,10 @@ class MovieDBApi {
         let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
             
             guard error == nil else {
-                DispatchQueue.main.async {
-                    completion(Result.failure(error!))
+                if let error = error {
+                    DispatchQueue.main.async {
+                        completion(Result.failure(error))
+                    }
                 }
                 return
             }

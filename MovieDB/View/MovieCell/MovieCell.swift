@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieCell: UICollectionViewCell {
+final class MovieCell: UICollectionViewCell {
     
     //MARK: - Outlets
     
@@ -19,39 +19,39 @@ class MovieCell: UICollectionViewCell {
         }
     }
     
-    @IBOutlet weak var backgroundFallback: UIView! {
+    @IBOutlet private weak var backgroundFallback: UIView! {
         didSet {
             backgroundFallback.layer.cornerRadius = posterRadius
             backgroundFallback.layer.masksToBounds = true
         }
     }
     
-    @IBOutlet weak var status: UILabel! {
+    @IBOutlet private weak var status: UILabel! {
         didSet {
             status.text = AppStrings.MovieCell.noPosterAvailable
         }
     }
-    @IBOutlet weak var posterActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var posterActivityIndicator: UIActivityIndicatorView!
     
     @IBOutlet private weak var titleLabel: UILabel!
-    @IBOutlet weak var starRatingView: StarRatingView!
+    @IBOutlet private weak var starRatingView: StarRatingView!
     
     //MARK: - Properties
     
     static var nib = UINib(nibName: "MovieCell", bundle: nil)
-    static var identifier = "MovieCell"
+    static let identifier = "MovieCell"
     
     private var imageDownloadTask: URLSessionDataTask?
     
     //MARK: - Constants
     
-    let posterRadius: CGFloat = 20.0
+    private let posterRadius: CGFloat = 20.0
     
     //MARK: - Life Cycle
     
     func prepare(title: String, posterUrl: String, voteAverage: Double) {
         titleLabel.text = title
-        starRatingView.setupStars(voteAverage: voteAverage)
+        starRatingView.setup(voteAverage: voteAverage)
         loadPosterImage(posterUrlString: posterUrl)
     }
     
@@ -84,14 +84,13 @@ class MovieCell: UICollectionViewCell {
         
         posterActivityIndicator.startAnimating()
         
-        imageDownloadTask = ImageDownloader.shared.getImage(url: posterUrl) { [weak self] result in
+        imageDownloadTask = ImageDownloader.shared.requestImage(url: posterUrl) { [weak self] result in
             self?.posterActivityIndicator.stopAnimating()
             switch result {
             case .success(let image):
                 self?.posterImage.image = image
-            case .failure(let error):
+            case .failure(_):
                 self?.status.isHidden = false
-                print(error.localizedDescription)
             }
         }
     }

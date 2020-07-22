@@ -1,5 +1,5 @@
 //
-//  MovieCategoy.swift
+//  MovieListCategory.swift
 //  MovieDB
 //
 //  Created by Ruann Homem on 17/07/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MovieCategory:  CaseIterable {
+enum MovieListCategory: CaseIterable {
     case nowPlaying
     case popular
     case topRated
@@ -21,16 +21,16 @@ enum MovieCategory:  CaseIterable {
                 return AppStrings.MovieCategory.nowPlaying
             case .popular:
                 return AppStrings.MovieCategory.popular
+            case .search:
+                return AppStrings.MovieCategory.searchResults
             case .topRated:
                 return AppStrings.MovieCategory.topRated
             case .upcoming:
                 return AppStrings.MovieCategory.upcoming
-            case .search:
-                return AppStrings.MovieCategory.searchResults
         }
     }
     
-    static var allCategories: [MovieCategory] {
-        MovieCategory.allCases.filter({ $0 != .search })
+    static var allCategories: [MovieListCategory] {
+        MovieListCategory.allCases.filter{ $0 != .search }
     }
 }

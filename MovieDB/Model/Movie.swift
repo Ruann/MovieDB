@@ -18,28 +18,7 @@ struct Movie: Codable {
     let releaseDate: String
     let voteAverage: Double?
     
-    var backgroundImageFullPath: String {
-        guard let configuration = Configuration.shared,
-            let backgroundImagePath = backgroundImagePath else {
-                return String.empty
-        }
-        
-        return configuration.backgroundImageBaseUrl+backgroundImagePath
-    }
-    
-    var genreList: String {
-        genres.map({ $0.name }).joined(separator: String.separatorForList)
-    }
-    
-    var studioList: String {
-        studios.map({ $0.name }).joined(separator: String.separatorForList)
-    }
-    
-    var yearReleased: String? {
-        DateHelper.shared.getYearFrom(string: releaseDate)
-    }
-    
-    private enum CodingKeys : String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case title
         case overview
         case backgroundImagePath = "backdrop_path"
@@ -47,5 +26,26 @@ struct Movie: Codable {
         case studios = "production_companies"
         case releaseDate = "release_date"
         case voteAverage = "vote_average"
+    }
+    
+    var backgroundImageFullPath: String {
+        guard let configuration = Configuration.shared,
+            let backgroundImagePath = backgroundImagePath else {
+                return String.empty
+        }
+        
+        return configuration.backgroundImageBaseUrl + backgroundImagePath
+    }
+    
+    var genreList: String {
+        genres.map{ $0.name }.joined(separator: String.separatorForList)
+    }
+    
+    var studioList: String {
+        studios.map{ $0.name }.joined(separator: String.separatorForList)
+    }
+    
+    var yearReleased: String? {
+        DateHelper.shared.getYearFrom(string: releaseDate)
     }
 }

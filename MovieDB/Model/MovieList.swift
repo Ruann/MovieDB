@@ -13,7 +13,7 @@ struct MovieList: Codable {
     let total: Int
     let moviesTile: [MovieTile]
     
-    private enum CodingKeys : String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case page
         case total = "total_results"
         case moviesTile = "results"

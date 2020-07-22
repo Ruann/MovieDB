@@ -11,23 +11,23 @@ import Network
 
 //MARK: - HomeViewController
 
-class HomeViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     //MARK: - Outlets
     
-    @IBOutlet weak var searchHeaderLabel: UILabel! {
+    @IBOutlet private weak var searchHeaderLabel: UILabel! {
         didSet {
             searchHeaderLabel.text = AppStrings.Home.searchHeader
         }
     }
     
-    @IBOutlet weak var headerSearchLabel: UILabel! {
+    @IBOutlet private weak var headerSearchLabel: UILabel! {
         didSet {
             headerSearchLabel.addLineSpacing(headerSearchLabelLineSpacing)
         }
     }
     
-    @IBOutlet weak var searchBar: UISearchBar! {
+    @IBOutlet private weak var searchBar: UISearchBar! {
         didSet {
             searchBar.customize()
             searchBar.isUserInteractionEnabled = false
@@ -41,36 +41,39 @@ class HomeViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var movieListsActivityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var backToCategoriesButton: UIButton!
-    @IBOutlet weak var failedToLoadMoviesLabel: UILabel!
+    @IBOutlet private weak var movieListsActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var backToCategoriesButton: UIButton!
+    @IBOutlet private weak var failedToLoadMoviesLabel: UILabel!
     
     //MARK: - Properties
     
-    private var movieCategories: [MovieCategory] = MovieCategory.allCategories
-    private var monitor: NWPathMonitor?
+    private var movieCategories: [MovieListCategory] = MovieListCategory.allCategories
     
     private var searchText: String? {
         didSet {
             if searchText != nil {
                 movieCategories = [.search]
             } else {
-                movieCategories = MovieCategory.allCategories
+                movieCategories = MovieListCategory.allCategories
             }
         }
     }
     
     //MARK: - Constants
     
-    let headerSearchLabelLineSpacing: CGFloat = 5.0
-    let movieCollectionRadius: CGFloat = 15.0
-    let movieListCellHeight: CGFloat = 290
-    let movieCollectionInsets = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 0.0, right: 0.0)
+    private let headerSearchLabelLineSpacing: CGFloat = 5.0
+    private let movieCollectionRadius: CGFloat = 15.0
+    private let movieListCellHeight: CGFloat = 290
+    private let movieCollectionInsets = UIEdgeInsets(top: 40.0, left: 0.0, bottom: 0.0, right: 0.0)
+    
+    private var isConfigurationLoaded: Bool {
+        Configuration.isConfigurationLoaded
+    }
     
     //MARK: - Life Cycle
     
-    private var isConfigurationLoaded: Bool {
-        Configuration.shared != nil
+    deinit {
+        //removeer notificação
     }
     
     override func viewDidLoad() {

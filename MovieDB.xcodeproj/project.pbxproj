@@ -24,7 +24,7 @@
 		AD4A5F3C24C2255700D3C485 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F3B24C2255700D3C485 /* Configuration.swift */; };
 		AD4A5F4224C23E1F00D3C485 /* MovieListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD4A5F4124C23E1F00D3C485 /* MovieListCell.xib */; };
 		AD4A5F4424C2451B00D3C485 /* MovieListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F4324C2451B00D3C485 /* MovieListCell.swift */; };
-		AD4A5F4624C2613A00D3C485 /* MovieCategoy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F4524C2613A00D3C485 /* MovieCategoy.swift */; };
+		AD4A5F4624C2613A00D3C485 /* MovieListCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD4A5F4524C2613A00D3C485 /* MovieListCategory.swift */; };
 		AD7291F724C4769C003F351E /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD7291F024C461BE003F351E /* OpenSans-Bold.ttf */; };
 		AD7291F824C4769C003F351E /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD7291F524C463E2003F351E /* OpenSans-Regular.ttf */; };
 		AD7291F924C4769C003F351E /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD7291F624C4751A003F351E /* OpenSans-SemiBold.ttf */; };
@@ -79,7 +79,7 @@
 		AD4A5F3B24C2255700D3C485 /* Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
 		AD4A5F4124C23E1F00D3C485 /* MovieListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieListCell.xib; sourceTree = "<group>"; };
 		AD4A5F4324C2451B00D3C485 /* MovieListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCell.swift; sourceTree = "<group>"; };
-		AD4A5F4524C2613A00D3C485 /* MovieCategoy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategoy.swift; sourceTree = "<group>"; };
+		AD4A5F4524C2613A00D3C485 /* MovieListCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCategory.swift; sourceTree = "<group>"; };
 		AD7291F024C461BE003F351E /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
 		AD7291F524C463E2003F351E /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
 		AD7291F624C4751A003F351E /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 			children = (
 				ADEEF6CA24C35AF800257E34 /* Movie.swift */,
 				AD4A5F2E24C1FA6D00D3C485 /* MovieTile.swift */,
-				AD4A5F4524C2613A00D3C485 /* MovieCategoy.swift */,
+				AD4A5F4524C2613A00D3C485 /* MovieListCategory.swift */,
 				AD4A5F3024C1FE6C00D3C485 /* MovieList.swift */,
 				ADEEF6C824C3562800257E34 /* MovieGenre.swift */,
 				ADEEF6CC24C3788300257E34 /* ProductionCompany.swift */,
@@ -399,7 +399,7 @@
 				AD8FF1C624C613F100842946 /* AppStrings.swift in Sources */,
 				AD4A5F4424C2451B00D3C485 /* MovieListCell.swift in Sources */,
 				AD8FF1BD24C5DEDA00842946 /* UILabelExtensions.swift in Sources */,
-				AD4A5F4624C2613A00D3C485 /* MovieCategoy.swift in Sources */,
+				AD4A5F4624C2613A00D3C485 /* MovieListCategory.swift in Sources */,
 				AD4A5F3324C205DE00D3C485 /* MovieCell.swift in Sources */,
 				AD8FF1B924C5D89700842946 /* StringExtensions.swift in Sources */,
 				AD4A5F3124C1FE6C00D3C485 /* MovieList.swift in Sources */,

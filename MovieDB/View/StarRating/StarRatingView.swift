@@ -9,16 +9,16 @@
 import UIKit
 
 
-class StarRatingView: UIView {
+final class StarRatingView: UIView {
     
     //MARK: - Outlets
     
-    @IBOutlet weak var contentView: UIView!
-    @IBOutlet weak var firstStarImageView: UIImageView!
-    @IBOutlet weak var secondStarImageView: UIImageView!
-    @IBOutlet weak var thirdStarImageView: UIImageView!
-    @IBOutlet weak var fourthStarImageView: UIImageView!
-    @IBOutlet weak var fifthStarImageView: UIImageView!
+    @IBOutlet private weak var contentView: UIView!
+    @IBOutlet private weak var firstStarImageView: UIImageView!
+    @IBOutlet private weak var secondStarImageView: UIImageView!
+    @IBOutlet private weak var thirdStarImageView: UIImageView!
+    @IBOutlet private weak var fourthStarImageView: UIImageView!
+    @IBOutlet private weak var fifthStarImageView: UIImageView!
     
     //MARK: - Constants
     
@@ -58,7 +58,7 @@ class StarRatingView: UIView {
     
     //MARK: - Public Methods
     
-    func setupStars(voteAverage: Double) {
+    func setup(voteAverage: Double) {
         if voteAverage > firstStarMinimunVoteAverage {
             firstStarImageView.alpha = 1
         }

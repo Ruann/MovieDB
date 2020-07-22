@@ -13,6 +13,5 @@ extension UISearchBar {
         self[keyPath: \.searchTextField].font = UIFont(name: "OpenSans-regular", size: 15.0)
         self[keyPath: \.searchTextField].textColor = .white
         searchTextField.leftView?.tintColor = .white
-        
     }
 }

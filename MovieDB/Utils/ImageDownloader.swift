@@ -14,13 +14,13 @@ enum ImageDownloaderError: Error {
     case corruptedData
 }
 
-class ImageDownloader {
+final class ImageDownloader {
     static let shared = ImageDownloader()
     
     private init() {}
     
     @discardableResult
-    func getImage(url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)  -> URLSessionDataTask? {
+    func requestImage(url: URL, completion: @escaping (Result<UIImage, Error>) -> Void)  -> URLSessionDataTask? {
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             guard let data = data, error == nil else {
                 let error = error ?? ImageDownloaderError.missingData
@@ -30,12 +30,14 @@ class ImageDownloader {
                 return
             }
             
-            DispatchQueue.main.async() {
-                guard let image = UIImage(data: data) else {
+            guard let image = UIImage(data: data) else {
+                DispatchQueue.main.async() {
                     completion(.failure(ImageDownloaderError.corruptedData))
-                    return
                 }
-                
+                return
+            }
+            
+            DispatchQueue.main.async() {
                 completion(.success(image))
             }
         }

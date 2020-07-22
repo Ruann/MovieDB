@@ -9,6 +9,7 @@
 import UIKit
 import Network
 
+//merge
 extension Notification.Name {
     static let lostInternetConnection = Notification.Name("lostInternetConnection")
 }

@@ -11,20 +11,24 @@ import Foundation
 struct Configuration: Codable {
     static var shared: Configuration?
     
+    static var isConfigurationLoaded: Bool {
+        Configuration.shared != nil
+    }
+    
     let images: ImagesConfiguration
     
     var posterBaseUrl: String {
         let baseUrl = images.baseUrl
         let posterSize = images.posterSizes.first ?? String.empty
         
-        return baseUrl+posterSize
+        return baseUrl + posterSize
     }
     
     var backgroundImageBaseUrl: String {
         let baseUrl = images.baseUrl
         let backgroundImageSize = images.backdropsizes.first ?? String.empty
         
-        return baseUrl+backgroundImageSize
+        return baseUrl + backgroundImageSize
     }
 }
 

@@ -16,7 +16,7 @@ protocol MovieListCellDelegate {
 
 //MARK: - MovieListCell
 
-class MovieListCell: UICollectionViewCell {
+final class MovieListCell: UICollectionViewCell {
     
     //MARK: - Outlets
     
@@ -44,13 +44,14 @@ class MovieListCell: UICollectionViewCell {
     //MARK: - Properties
     
     static var nib = UINib(nibName: "MovieListCell", bundle: nil)
-    static var identifier = "MovieListCell"
+    static let identifier = "MovieListCell"
     
     var delegate: MovieListCellDelegate?
     
     private var movieCategoryProvider: MovieListProvider?
     
-    //MARK: - Constante
+    //MARK: - Constant
+    
     let cellLineSpacing: CGFloat = 20.0
     let cellSize = CGSize(width: 150, height: 230)
     let collectionInset = UIEdgeInsets(top: 0.0, left: 20.0, bottom: 0.0, right: 0.0)
@@ -61,7 +62,7 @@ class MovieListCell: UICollectionViewCell {
         self.movieCategoryProvider = movieCategoryProvider
         movieCategoryProvider.delegate = self
         
-        self.categoryLabel.text = movieCategoryProvider.displayName.uppercased()
+        categoryLabel.text = movieCategoryProvider.displayName.uppercased()
         
         movieCategoryProvider.requestMovies()
     }
@@ -88,8 +89,7 @@ class MovieListCell: UICollectionViewCell {
 
 extension MovieListCell: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let movieCategoryProvider = movieCategoryProvider else { return 0 }
-        return movieCategoryProvider.totalMoviesToDisplay
+        movieCategoryProvider?.totalMoviesToDisplay ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

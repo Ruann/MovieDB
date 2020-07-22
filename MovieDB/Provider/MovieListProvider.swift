@@ -13,10 +13,10 @@ protocol MovieListProviderDelegate {
     func onRequestFailed(with error: Error, movieCategoryProvider: MovieListProvider)
 }
 
-class MovieListProvider {
+final class MovieListProvider {
     
     var delegate: MovieListProviderDelegate?
-    var movieCategory: MovieCategory
+    var movieCategory: MovieListCategory
     
     private var movieList: MovieList?
     private var searchTerm: String?
@@ -38,13 +38,13 @@ class MovieListProvider {
         return total
     }
     
-    init(movieCategory: MovieCategory) {
+    init(movieCategory: MovieListCategory) {
         self.movieCategory = movieCategory
     }
     
     init(searchText: String) {
-        self.movieCategory = .search
-        self.searchTerm = searchText
+        movieCategory = .search
+        searchTerm = searchText
     }
     
     func requestMovies() {
@@ -76,7 +76,6 @@ class MovieListProvider {
                         self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
                     }
                     self.isFetchInProgress = false
-                    print(error.localizedDescription)
             }
         }
     }
@@ -102,7 +101,6 @@ class MovieListProvider {
                         self.delegate?.onRequestFailed(with: error, movieCategoryProvider: self)
                     }
                     self.isFetchInProgress = false
-                    print(error.localizedDescription)
             }
         }
     }
@@ -130,6 +128,6 @@ class MovieListProvider {
     private func calculateIndexPathsToReload(from newMoviesTiles: [MovieTile]) -> [IndexPath] {
         let startIndex = totalMoviesLoaded - newMoviesTiles.count
         let endIndex = startIndex + newMoviesTiles.count
-        return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+        return (startIndex ..< endIndex).map { IndexPath(row: $0, section: 0) }
     }
 }
